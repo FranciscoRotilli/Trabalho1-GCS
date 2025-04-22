@@ -1,10 +1,7 @@
-import java.util.Collection;
+import java.util.ArrayList;
 
 public class Equipamentos {
-
 	private ArrayList<Equipamento> equipamentos;
-
-	private Collection<Equipamento> equipamento;
 
 	public boolean cadastraEquipamento(String nome, String tipo, String descricao, double valorAquisicao, Funcionario responsavel) {
 		return false;
