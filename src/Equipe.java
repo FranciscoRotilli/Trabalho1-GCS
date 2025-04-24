@@ -46,8 +46,7 @@ public class Equipe {
 	}
 
 	/**
-	 * ======== INCOMPLETO ===========
-	 * Encontra funcionarios pelo nome completo; aceita pequisa parcial
+	 * Encontra funcionarios pelo nome completo ou email; aceita pequisa parcial
 	 * @param entrada valor informado pela pesquisa
 	 * @return retorna um arraylist com os funcionarios correspondentes a entrada
 	 */
@@ -57,7 +56,7 @@ public class Equipe {
 			String nome = f.getNomeCompleto().toLowerCase();
 			String email = f.getEmail().toLowerCase();
 			entrada = entrada.toLowerCase();
-			if (nome.contains(entrada)) {
+			if (nome.contains(entrada) || email.contains(entrada)) {
 				saida.add(f);
 			}
 		}
