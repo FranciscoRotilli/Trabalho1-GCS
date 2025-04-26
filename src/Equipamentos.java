@@ -9,7 +9,7 @@ public class Equipamentos {
     }
 
 	public void cadastraEquipamento(String nome, Equipamento.Tipo tipo, String descricao, double valorAquisicao, Funcionario responsavel) {
-		Equipamento equipamento = new Equipamento(nome, descricao, LocalDate.now(), valorAquisicao, responsavel, tipo, new ArrayList<Manutencao>());
+		Equipamento equipamento = new Equipamento(nome, descricao, LocalDate.now(), valorAquisicao, responsavel, tipo);
 		equipamentos.add(equipamento);
 	}
 

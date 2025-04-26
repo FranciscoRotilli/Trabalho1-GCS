@@ -23,8 +23,7 @@ public class Equipamento {
 					   LocalDate dataAquisicao,
 					   double valorAquisicao,
 					   Funcionario responsavelCompra,
-					   Tipo tipo,
-					   ArrayList<Manutencao> manutencoes) {
+					   Tipo tipo) {
         this.id  = contadorID++;
         this.nome = nome;
         this.descricao = descricao;
@@ -33,7 +32,7 @@ public class Equipamento {
         this.responsavelCompra = responsavelCompra;
         this.disponivel = true;
         this.tipo = tipo;
-		this.manutencoes = manutencoes;
+        this.manutencoes = new ArrayList<>();
     }
 
 	public int getId() {
@@ -78,10 +77,6 @@ public class Equipamento {
 
 	public ArrayList<Manutencao> getManutencoes() {
 		return manutencoes;
-	}
-
-	public void setManutencoes(ArrayList<Manutencao> manutencoes) {
-		this.manutencoes = manutencoes;
 	}
 
 	public void adicionarManutencao(Manutencao manutencao) {
