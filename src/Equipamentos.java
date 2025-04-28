@@ -40,19 +40,48 @@ public class Equipamentos {
 	}
 
 	public boolean pedeManutencao(Equipamento e, String descProblema, Funcionario responsavel) {
-		// TODO Adicionar manutencao
-		return true;
+		if (e == null && e.isDisponivel()) {
+			Manutencao manutencao = new Manutencao(e, LocalDate.now(), descProblema, responsavel, null, null, "", 0);
+			e.adicionarManutencao(manutencao);
+			e.setDisponivel(false);
+			return true;
+		}
+		return false;
 	}
 
 	public boolean avancaManutencao(Equipamento e, Manutencao m) {
-		// TODO Adicionar manutencao
-		return true;
+		if (e == null && m != null) {
+			if(m.getStatus() == 0) {
+				m.setDataManutencao(LocalDate.now());
+				m.setStatus(1);
+				return true;
+			}else if (m.getStatus() == 1) {
+				m.setDataRetorno(LocalDate.now());
+				m.setStatus(2);
+				e.setDisponivel(true);
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public String geraRelatorio(Equipamento e) {
-		// TODO Complementar manutencao em andamento e concluidas
-		return "Nome: " + e.getNome() + ", " 
-				+ "Responsavel Compra: " + e.getResponsavel().getNomeCompleto() + ", " 
-				+ "Manutencoes: " + e.getManutencoes().size();
+		if (e == null) {
+			return "Equipamento nao encontrado";
+		}
+		StringBuilder sb = new StringBuilder();
+		sb.append("Nome: " + e.getNome() + "\n");
+		sb.append("Responsavel Compra: " + e.getResponsavel().getNomeCompleto() + "\n");
+		sb.append("Manutencoes: " + e.getManutencoes().size() + "\n");
+
+		if (e.getManutencoes().isEmpty()) {
+			sb.append("Equipamento nao possui manutencoes\n");
+		} else {
+			for (Manutencao m : e.getManutencoes()) {
+				sb.append("- Problema: ").append(m.getDescProblema()).append(", ");
+				sb.append("Responsavel: ").append(m.getResponsavel().getNomeCompleto()).append("\n ");
+			}
+		}
+		return sb.toString();
 	}
 }
