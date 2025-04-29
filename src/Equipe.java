@@ -3,6 +3,9 @@ import java.util.ArrayList;
 public class Equipe {
 	private ArrayList<Funcionario> equipe;
 
+	public Equipe(){
+		equipe = new ArrayList<>();
+	}
 	/**
 	 * Cadastra funcinarios novos
 	 * @param nome nome completo do funcionario
