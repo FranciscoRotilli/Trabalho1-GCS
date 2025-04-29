@@ -3,17 +3,20 @@ import java.util.*;
 public class App {
     private Equipe equipe;
     private Scanner in;
+    private Equipamentos equipamentos;
 
     public App(){
         equipe = new Equipe();
         in = new Scanner(System.in);
+        equipamentos = new Equipamentos();
     }
 
     public void executar() {
-        int opcao;
-        menu();
-        System.out.println("Digite a opção desejada: ");
-        opcao = in.nextInt();
+        int opcao=0;
+        do {
+            menu();
+            System.out.println("Digite a opção desejada: ");
+            opcao = in.nextInt();
 
 //        adicionar os métodos
         switch (opcao){
@@ -30,7 +33,7 @@ public class App {
                 break;
 
             case 4:
-
+                addEquipamento();
                 break;
 
             case 5:
@@ -64,7 +67,8 @@ public class App {
             case 12:
 
                 break;
-        }
+            }
+        }while (opcao != 0);
     }
 
     public void menu(){
@@ -134,5 +138,40 @@ public class App {
                 }
             }
         }
+    }
+    public void addEquipamento(){
+        String nome, descricao, pesquisaFuncionario;
+        Equipamento.Tipo tipo;
+        double valorAquisicao;
+        Funcionario responsavel;
+        int opcao;
+
+        System.out.println("Digite o nome do equipamento");
+        nome=in.next();
+        System.out.println("Digite o tipo do equipamento (digite: FIXO ou MOVEL.)");
+        tipo = Equipamento.Tipo.valueOf(in.next());
+        System.out.println("Dê uma descrição do equipamento: ");
+        descricao = in.next();
+        System.out.println("Digite o valor do equipamento: ");
+        valorAquisicao = in.nextDouble();
+        System.out.println("Digite o nome ou email do responsavel pelo equipamento: ");
+        pesquisaFuncionario=in.next();
+        System.out.println("Resultados da esquisa: ");
+        for(int i=0; i<equipe.encontraFuncionario(pesquisaFuncionario).size(); i++) {
+            System.out.println("\n"+"["+i+"] " +"Nome: "+ equipe.encontraFuncionario(pesquisaFuncionario).get(i).getNomeCompleto()+", Email: "+equipe.encontraFuncionario(pesquisaFuncionario).get(i).getEmail());
+        }
+        System.out.println("\nEscolha o responsavel pelo equipamento digitando o numero a esquerda do funcionario desejado: ");
+        opcao=in.nextInt();
+        responsavel=equipe.encontraFuncionario(pesquisaFuncionario).get(opcao);
+
+        if(equipamentos.cadastraEquipamento(nome, tipo, descricao, valorAquisicao, responsavel)){
+            System.out.println("Equipamento cadastrado com sucesso.");
+        }
+        else{
+            System.out.println("Erro: Equipamento nao cadastrado.");
+        }
+
+
+
     }
 }

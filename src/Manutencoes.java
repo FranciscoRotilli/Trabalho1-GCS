@@ -8,7 +8,7 @@ public class Manutencoes {
     }
     
     public void agendarManutencao(Equipamento equipamento, String descProblema, Funcionario responsavel){
-        Manutencao manutencao = new Manutencao(equipamento, LocalDate.now(), descProblema, responsavel, null, null, 0, 0);
+        Manutencao manutencao = new Manutencao(equipamento, LocalDate.now(), descProblema, responsavel, null, null, "", 0);
         manutencoes.add(manutencao);
     }
 
@@ -21,7 +21,7 @@ public class Manutencoes {
         return false;
     }
 
-    public boolean finalizaManutencao(Manutencao manutencao, int descSolucao){
+    public boolean finalizaManutencao(Manutencao manutencao, String descSolucao){
         if (manutencao != null && manutencao.getStatus() == 1){
             manutencao.setDescSolucao(descSolucao);
             manutencao.setDataRetorno(LocalDate.now());

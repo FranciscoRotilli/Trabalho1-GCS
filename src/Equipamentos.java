@@ -8,9 +8,14 @@ public class Equipamentos {
 		equipamentos = new ArrayList<>();
 	}
 
-	public void cadastraEquipamento(String nome, Equipamento.Tipo tipo, String descricao, double valorAquisicao, Funcionario responsavel) {
-		Equipamento equipamento = new Equipamento(nome, descricao, LocalDate.now(), valorAquisicao, responsavel, tipo);
-		equipamentos.add(equipamento);
+	public boolean cadastraEquipamento(String nome, Equipamento.Tipo tipo, String descricao, double valorAquisicao, Funcionario responsavel) {
+		if(nome!=null && tipo!=null && descricao!=null && valorAquisicao!=0 && responsavel!=null) {
+			Equipamento equipamento = new Equipamento(nome, descricao, LocalDate.now(), valorAquisicao, responsavel, tipo);
+			equipamentos.add(equipamento);
+			return true;
+		}
+		else
+			return false;
 	}
 
 	public Equipamento buscarPorId(int id) {
