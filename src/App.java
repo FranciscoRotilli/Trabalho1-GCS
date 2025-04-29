@@ -22,11 +22,11 @@ public class App {
                 break;
 
             case 2:
-
+                alteraNome();
                 break;
 
             case 3:
-
+                alteraEmail();
                 break;
 
             case 4:
@@ -96,5 +96,43 @@ public class App {
             System.out.println("Cliente cadastrado com sucesso");
         else
             System.out.println("Erro, nome ou email inválido");
+    }
+
+    public void alteraNome(){
+        String nome;
+        System.out.println("=============================");
+        System.out.println("Digite o nome do cliente que deseja alterar");
+            nome = in.next();
+        ArrayList<Funcionario> funcionarios = equipe.encontraFuncionario(nome);
+        if(funcionarios.size() > 0){
+            System.out.println("Digite o novo nome do cliente");
+                nome = in.next();
+            for (Funcionario funcionario : funcionarios) {
+                if (equipe.alteraNome(funcionario, nome)) {
+                    System.out.println("Nome alterado com sucesso");
+                } else {
+                    System.out.println("Erro, nome inválido ou já cadastrado");
+                }
+            }
+        }
+    }
+
+    public void alteraEmail(){
+        String email;   
+        System.out.println("=============================");
+        System.out.println("Digite o nome do cliente que deseja alterar");
+            email = in.next();
+        ArrayList<Funcionario> funcionarios = equipe.encontraFuncionario(email);
+        if(funcionarios.size() > 0){
+            System.out.println("Digite o novo email do cliente");
+                email = in.next();
+            for (Funcionario funcionario : funcionarios) {
+                if (equipe.alteraEmail(funcionario, email)) {
+                    System.out.println("Email alterado com sucesso");
+                } else {
+                    System.out.println("Erro, email inválido ou já cadastrado");
+                }
+            }
+        }
     }
 }
