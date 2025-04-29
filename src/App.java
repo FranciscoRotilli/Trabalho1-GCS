@@ -19,54 +19,54 @@ public class App {
             opcao = in.nextInt();
 
 //        adicionar os métodos
-            switch (opcao) {
-                case 1:
-                    addFuncionario();
-                    break;
+        switch (opcao){
+            case 1:
+                addFuncionario();
+                break;
 
-                case 2:
+            case 2:
+                alteraNome();
+                break;
 
-                    break;
+            case 3:
+                alteraEmail();
+                break;
 
-                case 3:
+            case 4:
+                addEquipamento();
+                break;
 
-                    break;
+            case 5:
 
-                case 4:
-                    addEquipamento();
-                    break;
+                break;
 
-                case 5:
+            case 6:
 
-                    break;
+                break;
 
-                case 6:
+            case 7:
 
-                    break;
+                break;
 
-                case 7:
+            case 8:
 
-                    break;
+                break;
 
-                case 8:
+            case 9:
 
-                    break;
+                break;
 
-                case 9:
+            case 10:
 
-                    break;
+                break;
 
-                case 10:
+            case 11:
 
-                    break;
+                break;
 
-                case 11:
+            case 12:
 
-                    break;
-
-                case 12:
-
-                    break;
+                break;
             }
         }while (opcao != 0);
     }
@@ -102,6 +102,43 @@ public class App {
             System.out.println("Erro, nome ou email inválido");
     }
 
+    public void alteraNome(){
+        String nome;
+        System.out.println("=============================");
+        System.out.println("Digite o nome do cliente que deseja alterar");
+            nome = in.next();
+        ArrayList<Funcionario> funcionarios = equipe.encontraFuncionario(nome);
+        if(funcionarios.size() > 0){
+            System.out.println("Digite o novo nome do cliente");
+                nome = in.next();
+            for (Funcionario funcionario : funcionarios) {
+                if (equipe.alteraNome(funcionario, nome)) {
+                    System.out.println("Nome alterado com sucesso");
+                } else {
+                    System.out.println("Erro, nome inválido ou já cadastrado");
+                }
+            }
+        }
+    }
+
+    public void alteraEmail(){
+        String email;   
+        System.out.println("=============================");
+        System.out.println("Digite o nome do cliente que deseja alterar");
+            email = in.next();
+        ArrayList<Funcionario> funcionarios = equipe.encontraFuncionario(email);
+        if(funcionarios.size() > 0){
+            System.out.println("Digite o novo email do cliente");
+                email = in.next();
+            for (Funcionario funcionario : funcionarios) {
+                if (equipe.alteraEmail(funcionario, email)) {
+                    System.out.println("Email alterado com sucesso");
+                } else {
+                    System.out.println("Erro, email inválido ou já cadastrado");
+                }
+            }
+        }
+    }
     public void addEquipamento(){
         String nome, descricao, pesquisaFuncionario;
         Equipamento.Tipo tipo;
@@ -137,5 +174,4 @@ public class App {
 
 
     }
-
 }
