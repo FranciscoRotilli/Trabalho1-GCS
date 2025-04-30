@@ -44,11 +44,12 @@ public class Equipamentos {
 		return false;
 	}
 
-	public boolean pedeManutencao(Equipamento e, String descProblema, Funcionario responsavel) {
-		if (e == null && e.isDisponivel()) {
-			Manutencao manutencao = new Manutencao(e, LocalDate.now(), descProblema, responsavel, null, null, "", 0);
+	public boolean pedeManutencao(Equipamento e, String descProblema, Manutencoes manutencoes) {
+		if (e != null && e.isDisponivel()) {
+			Manutencao manutencao = new Manutencao(e, descProblema);
 			e.adicionarManutencao(manutencao);
 			e.setDisponivel(false);
+			manutencoes.agendarManutencao(e, descProblema);
 			return true;
 		}
 		return false;
