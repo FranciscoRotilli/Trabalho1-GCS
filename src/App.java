@@ -1,14 +1,17 @@
+import java.time.LocalDate;
 import java.util.*;
 
 public class App {
     private Equipe equipe;
     private Scanner in;
     private Equipamentos equipamentos;
+    private Manutencoes manutencoes;
 
     public App(){
         equipe = new Equipe();
         in = new Scanner(System.in);
         equipamentos = new Equipamentos();
+        manutencoes = new Manutencoes();
     }
 
     public void executar() {
@@ -65,9 +68,10 @@ public class App {
                 break;
 
             case 12:
+            acompanharManutencoesPendentesEAtivas();
+            break;
+        }
 
-                break;
-            }
         }while (opcao != 0);
     }
 
@@ -84,7 +88,8 @@ public class App {
         System.out.println("[9] - Atualizar um pedido de manutenção");
         System.out.println("[10] - Gerar relatório");
         System.out.println("[11] - Gerar histórico de manutenção");
-        System.out.println("[12] - "); // Opcao adicional ainda não implementada
+        System.out.println("[12] - Acompanhar manutenções pendentes e atrasadas");
+
     }
 
     public void addFuncionario(){
@@ -170,8 +175,29 @@ public class App {
         else{
             System.out.println("Erro: Equipamento nao cadastrado.");
         }
+    }
+        public void acompanharManutencoesPendentesEAtivas() {
+    System.out.println("Acompanhamento de Manutenções Pendentes e Atrasadas:");
+    for (Manutencao manutencao : manutencoes.getManutencoes()) {
+        // Verificar se a manutenção ainda está pendente (status 0 ou 1)
+        if (manutencao.getStatus() == 0 || manutencao.getStatus() == 1) {
+            System.out.println("Equipamento: " + manutencao.getEquipamento().getNome());
+            System.out.println("Problema: " + manutencao.getDescProblema());
+            System.out.println("Responsável: " + manutencao.getResponsavel().getNomeCompleto());
 
+            // Verificar se a manutenção está atrasada
+            if (manutencao.getStatus() == 1 && manutencao.getDataRetorno() == null) {
+                if (manutencao.getDataPedido().plusDays(7).isBefore(LocalDate.now())) {  // Exemplo: atraso de 7 dias
+                    System.out.println("Status: Atrasada (mais de 7 dias)");
+                } else {
+                    System.out.println("Status: Em andamento");
+                }
+            } else if (manutencao.getStatus() == 0) {
+                System.out.println("Status: Solicitada, aguardando atendimento");
+            }
 
-
+            System.out.println("----------------------------");
+        }
+    }
     }
 }

@@ -65,4 +65,10 @@ public class Manutencao {
 	public void setStatus(int status) {
 		this.status = status;
 	}
+	public boolean isAtrasada() {
+		if (status == 1 && dataRetorno == null) {  // Status 1 é "em andamento"
+			return dataPedido.plusDays(7).isBefore(LocalDate.now());  // Atrasada após 7 dias
+		}
+		return false;
+	}
 }
