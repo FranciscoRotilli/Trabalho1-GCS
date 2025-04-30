@@ -6,6 +6,10 @@ public class Manutencoes {
     public Manutencoes(){
         manutencoes = new ArrayList<>();
     }
+
+    public ArrayList<Manutencao> getManutencoes() {
+        return manutencoes;
+    }
     
     public void agendarManutencao(Equipamento equipamento, String descProblema) {
         Manutencao manutencao = new Manutencao(equipamento, descProblema);
