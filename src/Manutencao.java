@@ -10,15 +10,15 @@ public class Manutencao {
 	private String descSolucao;
 	private int status;
 	
-	public Manutencao(Equipamento equipamento, LocalDate dataPedido, String descProblema, Funcionario responsavel, LocalDate dataManutencao, LocalDate dataRetorno, String descSolucao, int status) {
-		this.equipamento = equipamento;
-		this.dataPedido = dataPedido;
-		this.descProblema = descProblema;
-		this.responsavel = responsavel;
-		this.dataManutencao = dataManutencao;
-		this.dataRetorno = dataRetorno;
-		this.descSolucao = descSolucao;
-		this.status = status;
+	public Manutencao(Equipamento equipamento, String descProblema) {
+        this.equipamento = equipamento;
+        this.dataPedido = LocalDate.now();
+        this.descProblema = descProblema;
+        this.responsavel = null;
+        this.dataManutencao = null;
+        this.dataRetorno = null;
+        this.descSolucao = null;
+        this.status = 0;
 	}
 	
 	public Equipamento getEquipamento() {
@@ -29,9 +29,6 @@ public class Manutencao {
 	}
 	public LocalDate getDataPedido() {
 		return dataPedido;
-	}
-	public void setDataPedido(LocalDate dataPedido) {
-		this.dataPedido = dataPedido;
 	}
 	public String getDescProblema() {
 		return descProblema;
