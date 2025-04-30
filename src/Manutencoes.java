@@ -7,8 +7,8 @@ public class Manutencoes {
         manutencoes = new ArrayList<>();
     }
     
-    public void agendarManutencao(Equipamento equipamento, String descProblema, Funcionario responsavel){
-        Manutencao manutencao = new Manutencao(equipamento, LocalDate.now(), descProblema, responsavel, null, null, 0, 0);
+    public void agendarManutencao(Equipamento equipamento, String descProblema) {
+        Manutencao manutencao = new Manutencao(equipamento, descProblema);
         manutencoes.add(manutencao);
     }
 
