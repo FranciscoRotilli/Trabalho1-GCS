@@ -57,20 +57,16 @@ public class App {
                 break;
 
             case 9:
-
-                break;
-
-            case 10:
                 gerarRelatorioEquipamentos();
                 break;
             
-            case 11:
+            case 10:
 
                 break;
 
-            case 12:
-            acompanharManutencoesPendentesEAtivas();
-            break;
+            case 11:
+                acompanharManutencoesPendentesEAtivas();
+                break;
         }
 
         }while (opcao != 0);
@@ -110,11 +106,11 @@ public class App {
         System.out.println("[4] - Cadastrar equipamento");
         System.out.println("[5] - Status de um equipamento");
         System.out.println("[6] - Buscar funcionário/equipamento");
-        System.out.println("[8] - Registrar um pedido de manutenção");
-        System.out.println("[9] - Atualizar um pedido de manutenção");
-        System.out.println("[10] - Gerar relatório");
-        System.out.println("[11] - Gerar histórico de manutenção");
-        System.out.println("[12] - Acompanhar manutenções pendentes e atrasadas");
+        System.out.println("[7] - Registrar um pedido de manutenção");
+        System.out.println("[8] - Atualizar um pedido de manutenção");
+        System.out.println("[9] - Gerar relatório");
+        System.out.println("[10] - Gerar histórico de manutenção");
+        System.out.println("[11] - Acompanhar manutenções pendentes e atrasadas");
 
     }
 
