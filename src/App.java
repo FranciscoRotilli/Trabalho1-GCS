@@ -41,7 +41,7 @@ public class App {
                 break;
 
             case 5:
-
+                consultaStatusEquipamento();
                 break;
 
             case 6:
@@ -295,7 +295,46 @@ public class App {
                 System.out.print(" | [Em manutenção]");
             }
             System.out.println();  
+        }
     }
-    
-}
+
+    public void consultaStatusEquipamento(){
+        ArrayList<Equipamento> listaEquipamentos = equipamentos.getEquipamentos();
+        int id;
+
+        if (listaEquipamentos.isEmpty()){
+            System.out.println("Nenhum equipamento cadastrado.");
+            return;
+        }
+        else{
+            System.out.println("Equipamentos cadastrados:");
+            for (Equipamento eq : listaEquipamentos) {
+                System.out.println("- " + eq.getId() + " " + eq.getNome());
+            }
+        }
+
+        System.out.println("Digite o id do equipamento desejado: ");
+        id = in.nextInt();
+
+        Equipamento e = null;
+
+        for (Equipamento eq : listaEquipamentos){
+            if (eq.getId() == id){
+                e = eq;
+                break;
+            }
+        }
+
+        if (e != null){
+            if (e.isDisponivel()) {
+                System.out.println(e.getNome() + ": Equipamento disponível");
+            }
+            else{
+                System.out.println(e.getNome() + ": Equipamento indisponível");
+            }
+        }
+        else{
+            System.out.println("Equipamento não encontrado.");
+        }
+    }
 }
