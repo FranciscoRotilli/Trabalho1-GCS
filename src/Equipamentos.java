@@ -129,6 +129,29 @@ public class Equipamentos {
 		return historico.toString();
 	}
 
+	public ArrayList<Equipamento> encontraEquipamentos(String entrada) {
+		ArrayList<Equipamento> saida = new ArrayList<>();
+		for (Equipamento e : equipamentos) {
+			String nome = e.getNome().toLowerCase();
+			String descricao = e.getDescricao().toLowerCase();
+			entrada = entrada.toLowerCase();
+			if (nome.contains(entrada) || descricao.contains(entrada)) {
+				saida.add(e);
+			}
+		}
+		return saida;
+	}
+
+	public ArrayList<Equipamento> encontraEquipamentosPorResponsavel(Funcionario f) {
+		ArrayList<Equipamento> saida = new ArrayList<>();
+		for (Equipamento e : equipamentos) {
+			if (e.getResponsavelCompra().equals(f)) {
+				saida.add(e);
+			}
+		}
+		return saida;
+	}
+
 	private String getStatusString(int status) {
 		switch (status) {
 			case 0: return "Manutenção Solicitada";
