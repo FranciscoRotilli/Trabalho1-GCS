@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Equipamentos {
 	private ArrayList<Equipamento> equipamentos;
@@ -44,31 +45,44 @@ public class Equipamentos {
 		return false;
 	}
 
-	public boolean pedeManutencao(Equipamento e, String descProblema, Manutencoes manutencoes) {
+	public boolean agendarManutencao(Equipamento e, String descProblema) {
 		if (e != null && e.isDisponivel()) {
 			Manutencao manutencao = new Manutencao(e, descProblema);
 			e.adicionarManutencao(manutencao);
 			e.setDisponivel(false);
-			manutencoes.agendarManutencao(e, descProblema);
 			return true;
 		}
 		return false;
 	}
 
-	public boolean avancaManutencao(Equipamento e, Manutencao m) {
-		if (e != null && m != null) {
-			if(m.getStatus() == 0) {
-				m.setDataManutencao(LocalDate.now());
-				m.setStatus(1);
-				return true;
-			}else if (m.getStatus() == 1) {
-				m.setDataRetorno(LocalDate.now());
-				m.setStatus(2);
-				e.setDisponivel(true);
-				return true;
-			}
+	public boolean iniciaManutencao(Equipamento e, Manutencao manutencao) {
+        if (e != null && manutencao != null && manutencao.getStatus() == 0) {
+            manutencao.setDataManutencao(LocalDate.now());
+            manutencao.setStatus(1);
+            return true;
+        }
+        return false;
+    }
+
+	public boolean finalizaManutencao(Equipamento e, Manutencao manutencao, String descSolucao) {
+		if (e != null && manutencao != null && manutencao.getStatus() == 1) {
+			manutencao.setDescSolucao(descSolucao);
+			manutencao.setDataRetorno(LocalDate.now());
+			manutencao.setStatus(2);
+			e.setDisponivel(true);
+			return true;
 		}
 		return false;
+	}
+
+	public List<Manutencao> getManutencoesPorEquipamento(Equipamento equipamento) {
+		List<Manutencao> lista = new ArrayList<>();
+		for (Manutencao m : equipamento.getManutencoes()) {
+			if (m.getEquipamento().equals(equipamento)) {
+				lista.add(m);
+			}
+		}
+		return lista;
 	}
 
 	public String geraRelatorio(Equipamento e) {
@@ -76,20 +90,17 @@ public class Equipamentos {
 			return "Equipamento nao encontrado";
 		}
 		StringBuilder sb = new StringBuilder();
-		sb.append("Nome: ").append(e.getNome()).append("\n");
-		sb.append("Tipo: ").append(e.getTipo()).append("\n");
-		sb.append("Descrição: ").append(e.getDescricao()).append("\n");
-		sb.append("Responsável pela compra: ").append(e.getResponsavel().getNomeCompleto()).append("\n");
-		sb.append("Manutenções: ").append(e.getManutencoes().size()).append("\n");
+		sb.append("Nome: " + e.getNome() + "\n");
+		sb.append("Responsavel Compra: " + e.getResponsavelCompra().getNomeCompleto() + "\n");
+		sb.append("Manutencoes: " + e.getManutencoes().size() + "\n");
 
 		if (e.getManutencoes().isEmpty()) {
-			sb.append("Equipamento não possui manutenções");
+			sb.append("Equipamento nao possui manutencoes\n");
 		} else {
-			Manutencao m = e.getManutencoes().getLast();
-			sb.append("Última manutenção: ").append(m.getDataPedido()).append(" - ");
-			sb.append("Status: ").append(getStatusString(m.getStatus())).append(" - ");
-			sb.append("Problema: ").append(m.getDescProblema()).append(" - ");
-			sb.append("Responsável: ").append(m.getResponsavel().getNomeCompleto());
+			for (Manutencao m : e.getManutencoes()) {
+				sb.append("- Problema: ").append(m.getDescProblema()).append(", ");
+				sb.append("Responsavel: ").append(m.getResponsavel().getNomeCompleto()).append("\n ");
+			}
 		}
 		return sb.toString();
 	}
@@ -116,33 +127,6 @@ public class Equipamentos {
 		}
 
 		return historico.toString();
-	}
-
-	public ArrayList<Equipamento> getEquipamentos() {
-		return equipamentos;
-	}
-
-	public ArrayList<Equipamento> encontraEquipamentos(String entrada) {
-		ArrayList<Equipamento> saida = new ArrayList<>();
-		for (Equipamento e : equipamentos) {
-			String nome = e.getNome().toLowerCase();
-			String descricao = e.getDescricao().toLowerCase();
-			entrada = entrada.toLowerCase();
-			if (nome.contains(entrada) || descricao.contains(entrada)) {
-				saida.add(e);
-			}
-		}
-		return saida;
-	}
-
-	public ArrayList<Equipamento> encontraEquipamentosPorResponsavel(Funcionario f) {
-		ArrayList<Equipamento> saida = new ArrayList<>();
-		for (Equipamento e : equipamentos) {
-			if (e.getResponsavel().equals(f)) {
-				saida.add(e);
-			}
-		}
-		return saida;
 	}
 
 	private String getStatusString(int status) {
