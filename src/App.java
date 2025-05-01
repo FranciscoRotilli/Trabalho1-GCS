@@ -15,6 +15,7 @@ public class App {
     }
 
     public void executar() {
+        criar_dados_iniciais();
         int opcao=0;
         do {
             menu();
@@ -73,6 +74,32 @@ public class App {
         }
 
         }while (opcao != 0);
+    }
+
+    public void criar_dados_iniciais(){
+        // Cria 6 funcionários com nomes em homenagem a figuras icônicas na tecnologia
+
+        equipe.cadastraFuncionario("Linus Torvalds", "linus.torvalds@gcssolucoesdigitais.com.br");
+        equipe.cadastraFuncionario("John Carmack", "john.carmack@gcssolucoesdigitais.com.br");
+        equipe.cadastraFuncionario("Ada Lovelace", "ada.lovelace@gcssolucoesdigitais.com.br");
+        equipe.cadastraFuncionario("Dennis Ritchie", "dennis.ritchie@gcssolucoesdigitais.com.br");
+        equipe.cadastraFuncionario("Steve Wozniak", "steve.wosniak@gcssolucoesdigitais.com.br");
+        equipe.cadastraFuncionario("Grace Hopper", "grace.hopper@gcssolucoesdigitais.com.br");
+
+        // Cria 7 equipamentos e os cadastra na mesma hora
+
+        equipamentos.cadastraEquipamento("Laptop Dell XPS", Equipamento.Tipo.MOVEL, "Laptop de alto desempenho com 16GB RAM", 4500.00, equipe.encontraFuncionarioPorMatricula(102));
+        equipamentos.cadastraEquipamento("Macbook Pro M4", Equipamento.Tipo.MOVEL, "Laptop de alto desempenho com 16GB RAM", 12000.00, equipe.encontraFuncionarioPorMatricula(102));
+        equipamentos.cadastraEquipamento("Servidor Lenovo Thinksystem", Equipamento.Tipo.FIXO, "Servidor Linux", 9500.00, equipe.encontraFuncionarioPorMatricula(101));
+        equipamentos.cadastraEquipamento("Laptop HP G9", Equipamento.Tipo.MOVEL, "Laptop de médio desempenho com 8GB RAM", 2699.00, equipe.encontraFuncionarioPorMatricula(103));
+        equipamentos.cadastraEquipamento("Laptop HP G9", Equipamento.Tipo.MOVEL, "Laptop de médio desempenho com 8GB RAM", 2699.00, equipe.encontraFuncionarioPorMatricula(104));
+        equipamentos.cadastraEquipamento("HP Neverstop Laser", Equipamento.Tipo.FIXO, "Impressora de alto nível", 500.00, equipe.encontraFuncionarioPorMatricula(106));
+        equipamentos.cadastraEquipamento("Laptop Dell XPS", Equipamento.Tipo.MOVEL, "Laptop de alto desempenho com 16GB RAM", 4500.00, equipe.encontraFuncionarioPorMatricula(106));
+        // Cria 1 equipamento e depois o cadastra (Não funciona pois não há funcionalidade de criar um equipamento e depois adiciona-lo a lista)
+
+        // Equipamento e = new Equipamento("Macbook Air M1", "Laptop de médio desempenho com 8GB RAM", LocalDate.of(2023, 5, 15), 5000.00, equipe.encontraFuncionarioPorMatricula(106), Equipamento.Tipo.MOVEL)
+        // equipamentos.equipamentos.add(e)
+
     }
 
     public void menu(){
