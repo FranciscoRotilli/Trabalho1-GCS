@@ -200,29 +200,59 @@ public class App {
             System.out.println("Erro: Equipamento nao cadastrado.");
         }
     }
-        public void acompanharManutencoesPendentesEAtivas() {
-    System.out.println("Acompanhamento de Manutenções Pendentes e Atrasadas:");
-    for (Manutencao manutencao : manutencoes.getManutencoes()) {
-        // Verificar se a manutenção ainda está pendente (status 0 ou 1)
-        if (manutencao.getStatus() == 0 || manutencao.getStatus() == 1) {
-            System.out.println("Equipamento: " + manutencao.getEquipamento().getNome());
-            System.out.println("Problema: " + manutencao.getDescProblema());
-            System.out.println("Responsável: " + manutencao.getResponsavel().getNomeCompleto());
+    public void acompanharManutencoesPendentesEAtivas() {
+        System.out.println("Acompanhamento de Manutenções Pendentes e Atrasadas:");
+        for (Manutencao manutencao : manutencoes.getManutencoes()) {
+            // Verificar se a manutenção ainda está pendente (status 0 ou 1)
+            if (manutencao.getStatus() == 0 || manutencao.getStatus() == 1) {
+                System.out.println("Equipamento: " + manutencao.getEquipamento().getNome());
+                System.out.println("Problema: " + manutencao.getDescProblema());
+                System.out.println("Responsável: " + manutencao.getResponsavel().getNomeCompleto());
 
-            // Verificar se a manutenção está atrasada
-            if (manutencao.getStatus() == 1 && manutencao.getDataRetorno() == null) {
-                if (manutencao.getDataPedido().plusDays(7).isBefore(LocalDate.now())) {  // Exemplo: atraso de 7 dias
-                    System.out.println("Status: Atrasada (mais de 7 dias)");
-                } else {
-                    System.out.println("Status: Em andamento");
+                // Verificar se a manutenção está atrasada
+                if (manutencao.getStatus() == 1 && manutencao.getDataRetorno() == null) {
+                    if (manutencao.getDataPedido().plusDays(7).isBefore(LocalDate.now())) {  // Exemplo: atraso de 7 dias
+                        System.out.println("Status: Atrasada (mais de 7 dias)");
+                    } else {
+                        System.out.println("Status: Em andamento");
+                    }
+                } else if (manutencao.getStatus() == 0) {
+                    System.out.println("Status: Solicitada, aguardando atendimento");
                 }
-            } else if (manutencao.getStatus() == 0) {
-                System.out.println("Status: Solicitada, aguardando atendimento");
-            }
 
-            System.out.println("----------------------------");
+                System.out.println("----------------------------");
+            }
         }
     }
+    public void busca() {
+        String entrada;
+        System.out.println("Digite a pesquisa aqui: ");
+        in.nextLine();
+        entrada = in.nextLine();
+        ArrayList<Funcionario> resultadoFuncionarios = equipe.encontraFuncionario(entrada);
+        // TODO: array resultados equipamentos
+
+        ArrayList<Object> resultados = new ArrayList<>();
+        resultados.addAll(resultadoFuncionarios);
+        // resultado.addAll(resultadoEquipamentos)
+        if (resultados.isEmpty()) {
+            System.out.println("Nenhum resultado encontrado.");
+            System.out.println("============================");
+        } else {
+            System.out.println("Resultados da pesquisa: ");
+            System.out.println("=========================");
+        }
+        for (Object resultado : resultados) {
+            Funcionario f;
+            Equipamento e;
+            if (resultado instanceof Funcionario) {
+                f = (Funcionario) resultado;
+                System.out.println(f);
+//            } else if (resultado instanceof Equipamento) {
+//                e = (Equipamento) resultado;
+//                System.out.println(e);
+            }
+        }
     }
 
     public void gerarRelatorioEquipamentos() {
