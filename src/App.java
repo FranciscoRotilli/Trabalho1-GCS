@@ -7,7 +7,7 @@ public class App {
     private Equipamentos equipamentos;
     private Manutencoes manutencoes;
 
-    public App(){
+    public App() {
         equipe = new Equipe();
         in = new Scanner(System.in);
         equipamentos = new Equipamentos();
@@ -16,63 +16,63 @@ public class App {
 
     public void executar() {
         criar_dados_iniciais();
-        int opcao=0;
+        int opcao = 0;
         do {
             menu();
             System.out.println("Digite a opção desejada: ");
             opcao = in.nextInt();
 
 //        adicionar os métodos
-        switch (opcao){
-            case 1:
-                addFuncionario();
-                break;
+            switch (opcao) {
+                case 1:
+                    addFuncionario();
+                    break;
 
-            case 2:
-                alteraNome();
-                break;
+                case 2:
+                    alteraNome();
+                    break;
 
-            case 3:
-                alteraEmail();
-                break;
+                case 3:
+                    alteraEmail();
+                    break;
 
-            case 4:
-                addEquipamento();
-                break;
+                case 4:
+                    addEquipamento();
+                    break;
 
-            case 5:
-                consultaStatusEquipamento();
-                break;
+                case 5:
+                    consultaStatusEquipamento();
+                    break;
 
-            case 6:
-                busca();
-                break;
+                case 6:
+                    busca();
+                    break;
 
-            case 7:
+                case 7:
 
-                break;
+                    break;
 
-            case 8:
+                case 8:
 
-                break;
+                    break;
 
-            case 9:
-                gerarRelatorioEquipamentos();
-                break;
-            
-            case 10:
+                case 9:
+                    gerarRelatorioEquipamentos();
+                    break;
 
-                break;
+                case 10:
 
-            case 11:
-                acompanharManutencoesPendentesEAtivas();
-                break;
-        }
+                    break;
 
-        }while (opcao != 0);
+                case 11:
+                    acompanharManutencoesPendentesEAtivas();
+                    break;
+            }
+
+        } while (opcao != 0);
     }
 
-    public void criar_dados_iniciais(){
+    public void criar_dados_iniciais() {
         // Cria 6 funcionários com nomes em homenagem a figuras icônicas na tecnologia
 
         equipe.cadastraFuncionario("Linus Torvalds", "linus.torvalds@gcssolucoesdigitais.com.br");
@@ -98,7 +98,7 @@ public class App {
 
     }
 
-    public void menu(){
+    public void menu() {
         System.out.println("=============================");
         System.out.println("[1] - Cadastrar funcionário");
         System.out.println("[2] - Editar o nome de um funcionário");
@@ -114,22 +114,22 @@ public class App {
 
     }
 
-    public void addFuncionario(){
+    public void addFuncionario() {
         String nome, email;
         System.out.println("=============================");
         System.out.println("Digite o nome do cliente");
-            nome = in.next();
+        nome = in.next();
 
         System.out.println("Digite o email do cliente");
-            email = in.next();
+        email = in.next();
 
-        if(equipe.cadastraFuncionario(nome, email))
+        if (equipe.cadastraFuncionario(nome, email))
             System.out.println("Cliente cadastrado com sucesso");
         else
             System.out.println("Erro, nome ou email inválido");
     }
 
-    public void alteraNome(){
+    public void alteraNome() {
         int matricula;
         Funcionario f;
         System.out.println("=============================");
@@ -144,9 +144,9 @@ public class App {
             System.out.println("Erro, nome inválido ou já cadastrado");
         }
     }
-        
 
-    public void alteraEmail(){
+
+    public void alteraEmail() {
         int matricula;
         Funcionario f;
         System.out.println("=============================");
@@ -161,9 +161,9 @@ public class App {
             System.out.println("Erro, Email inválido ou já cadastrado");
         }
     }
-        
-    
-    public void addEquipamento(){
+
+
+    public void addEquipamento() {
         String nome, descricao, pesquisaFuncionario;
         Equipamento.Tipo tipo;
         double valorAquisicao;
@@ -171,7 +171,7 @@ public class App {
         int opcao;
 
         System.out.println("Digite o nome do equipamento");
-        nome=in.next();
+        nome = in.next();
         System.out.println("Digite o tipo do equipamento (digite: FIXO ou MOVEL.)");
         tipo = Equipamento.Tipo.valueOf(in.next());
         System.out.println("Dê uma descrição do equipamento: ");
@@ -179,22 +179,22 @@ public class App {
         System.out.println("Digite o valor do equipamento: ");
         valorAquisicao = in.nextDouble();
         System.out.println("Digite o nome ou email do responsavel pelo equipamento: ");
-        pesquisaFuncionario=in.next();
+        pesquisaFuncionario = in.next();
         System.out.println("Resultados da esquisa: ");
-        for(int i=0; i<equipe.encontraFuncionario(pesquisaFuncionario).size(); i++) {
-            System.out.println("\n"+"["+i+"] " +"Nome: "+ equipe.encontraFuncionario(pesquisaFuncionario).get(i).getNomeCompleto()+", Email: "+equipe.encontraFuncionario(pesquisaFuncionario).get(i).getEmail());
+        for (int i = 0; i < equipe.encontraFuncionario(pesquisaFuncionario).size(); i++) {
+            System.out.println("\n" + "[" + i + "] " + "Nome: " + equipe.encontraFuncionario(pesquisaFuncionario).get(i).getNomeCompleto() + ", Email: " + equipe.encontraFuncionario(pesquisaFuncionario).get(i).getEmail());
         }
         System.out.println("\nEscolha o responsavel pelo equipamento digitando o numero a esquerda do funcionario desejado: ");
-        opcao=in.nextInt();
-        responsavel=equipe.encontraFuncionario(pesquisaFuncionario).get(opcao);
+        opcao = in.nextInt();
+        responsavel = equipe.encontraFuncionario(pesquisaFuncionario).get(opcao);
 
-        if(equipamentos.cadastraEquipamento(nome, tipo, descricao, valorAquisicao, responsavel)){
+        if (equipamentos.cadastraEquipamento(nome, tipo, descricao, valorAquisicao, responsavel)) {
             System.out.println("Equipamento cadastrado com sucesso.");
-        }
-        else{
+        } else {
             System.out.println("Erro: Equipamento nao cadastrado.");
         }
     }
+
     public void acompanharManutencoesPendentesEAtivas() {
         System.out.println("Acompanhamento de Manutenções Pendentes e Atrasadas:");
         for (Manutencao manutencao : manutencoes.getManutencoes()) {
@@ -219,6 +219,7 @@ public class App {
             }
         }
     }
+
     public void busca() {
         String entrada;
         System.out.println("Digite a pesquisa aqui: ");
@@ -247,9 +248,9 @@ public class App {
                 ArrayList<Equipamento> equipamentosResponsavel = equipamentos.encontraEquipamentosPorResponsavel(f);
                 if (!equipamentosResponsavel.isEmpty()) {
                     System.out.println(
-                        "------------------------------------------------" +
-                        "\nEquipamentos sob responsabilidade: " +
-                        "\n------------------------------------------------"
+                            "------------------------------------------------" +
+                                    "\nEquipamentos sob responsabilidade: " +
+                                    "\n------------------------------------------------"
                     );
                     for (Equipamento eq : equipamentosResponsavel) {
                         System.out.println(eq);
@@ -266,12 +267,12 @@ public class App {
 
     public void gerarRelatorioEquipamentos() {
         ArrayList<Equipamento> listaEquipamentos = equipamentos.getEquipamentos();
-    
+
         if (listaEquipamentos.isEmpty()) {
             System.out.println("Nenhum equipamento cadastrado.");
             return;
         }
-    
+
         System.out.println("Relatório de Equipamentos:\n");
         for (Equipamento e : listaEquipamentos) {
             String nome = e.getNome();
@@ -279,7 +280,7 @@ public class App {
     
             int manutencoesConcluidas = 0;
             boolean emAndamento = false;
-    
+
             for (Manutencao m : e.getManutencoes()) {
                 if (m.getStatus() == 2) {
                     manutencoesConcluidas++;
@@ -287,14 +288,14 @@ public class App {
                     emAndamento = true;
                 }
             }
-    
+
             System.out.print("Equipamento: " + nome);
             System.out.print(" | Responsável: " + responsavel);
             System.out.print(" | Manutenções Concluídas: " + manutencoesConcluidas);
             if (emAndamento) {
                 System.out.print(" | [Em manutenção]");
             }
-            System.out.println();  
+            System.out.println();
         }
     }
 
