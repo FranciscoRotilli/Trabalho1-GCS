@@ -76,17 +76,20 @@ public class Equipamentos {
 			return "Equipamento nao encontrado";
 		}
 		StringBuilder sb = new StringBuilder();
-		sb.append("Nome: " + e.getNome() + "\n");
-		sb.append("Responsavel Compra: " + e.getResponsavel().getNomeCompleto() + "\n");
-		sb.append("Manutencoes: " + e.getManutencoes().size() + "\n");
+		sb.append("Nome: ").append(e.getNome()).append("\n");
+		sb.append("Tipo: ").append(e.getTipo()).append("\n");
+		sb.append("Descrição: ").append(e.getDescricao()).append("\n");
+		sb.append("Responsável pela compra: ").append(e.getResponsavel().getNomeCompleto()).append("\n");
+		sb.append("Manutenções: ").append(e.getManutencoes().size()).append("\n");
 
 		if (e.getManutencoes().isEmpty()) {
-			sb.append("Equipamento nao possui manutencoes\n");
+			sb.append("Equipamento não possui manutenções");
 		} else {
-			for (Manutencao m : e.getManutencoes()) {
-				sb.append("- Problema: ").append(m.getDescProblema()).append(", ");
-				sb.append("Responsavel: ").append(m.getResponsavel().getNomeCompleto()).append("\n ");
-			}
+			Manutencao m = e.getManutencoes().getLast();
+			sb.append("Última manutenção: ").append(m.getDataPedido()).append(" - ");
+			sb.append("Status: ").append(getStatusString(m.getStatus())).append(" - ");
+			sb.append("Problema: ").append(m.getDescProblema()).append(" - ");
+			sb.append("Responsável: ").append(m.getResponsavel().getNomeCompleto());
 		}
 		return sb.toString();
 	}
@@ -115,6 +118,33 @@ public class Equipamentos {
 		return historico.toString();
 	}
 
+	public ArrayList<Equipamento> getEquipamentos() {
+		return equipamentos;
+	}
+
+	public ArrayList<Equipamento> encontraEquipamentos(String entrada) {
+		ArrayList<Equipamento> saida = new ArrayList<>();
+		for (Equipamento e : equipamentos) {
+			String nome = e.getNome().toLowerCase();
+			String descricao = e.getDescricao().toLowerCase();
+			entrada = entrada.toLowerCase();
+			if (nome.contains(entrada) || descricao.contains(entrada)) {
+				saida.add(e);
+			}
+		}
+		return saida;
+	}
+
+	public ArrayList<Equipamento> encontraEquipamentosPorResponsavel(Funcionario f) {
+		ArrayList<Equipamento> saida = new ArrayList<>();
+		for (Equipamento e : equipamentos) {
+			if (e.getResponsavel().equals(f)) {
+				saida.add(e);
+			}
+		}
+		return saida;
+	}
+
 	private String getStatusString(int status) {
 		switch (status) {
 			case 0: return "Manutenção Solicitada";
@@ -124,9 +154,4 @@ public class Equipamentos {
 			default: return "Status Desconhecido";
 		}
 	}
-	
-	public ArrayList<Equipamento> getEquipamentos() {
-		return equipamentos;
-	}
-	
 }

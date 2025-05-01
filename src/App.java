@@ -45,7 +45,7 @@ public class App {
                 break;
 
             case 6:
-
+                busca();
                 break;
 
             case 7:
@@ -109,8 +109,7 @@ public class App {
         System.out.println("[3] - Editar o email de um funcionário");
         System.out.println("[4] - Cadastrar equipamento");
         System.out.println("[5] - Status de um equipamento");
-        System.out.println("[6] - Buscar funcionário");
-        System.out.println("[7] - Buscar equipamento");
+        System.out.println("[6] - Buscar funcionário/equipamento");
         System.out.println("[8] - Registrar um pedido de manutenção");
         System.out.println("[9] - Atualizar um pedido de manutenção");
         System.out.println("[10] - Gerar relatório");
@@ -200,29 +199,77 @@ public class App {
             System.out.println("Erro: Equipamento nao cadastrado.");
         }
     }
-        public void acompanharManutencoesPendentesEAtivas() {
-    System.out.println("Acompanhamento de Manutenções Pendentes e Atrasadas:");
-    for (Manutencao manutencao : manutencoes.getManutencoes()) {
-        // Verificar se a manutenção ainda está pendente (status 0 ou 1)
-        if (manutencao.getStatus() == 0 || manutencao.getStatus() == 1) {
-            System.out.println("Equipamento: " + manutencao.getEquipamento().getNome());
-            System.out.println("Problema: " + manutencao.getDescProblema());
-            System.out.println("Responsável: " + manutencao.getResponsavel().getNomeCompleto());
+    public void acompanharManutencoesPendentesEAtivas() {
+        System.out.println("Acompanhamento de Manutenções Pendentes e Atrasadas:");
+        for (Manutencao manutencao : manutencoes.getManutencoes()) {
+            // Verificar se a manutenção ainda está pendente (status 0 ou 1)
+            if (manutencao.getStatus() == 0 || manutencao.getStatus() == 1) {
+                System.out.println("Equipamento: " + manutencao.getEquipamento().getNome());
+                System.out.println("Problema: " + manutencao.getDescProblema());
+                System.out.println("Responsável: " + manutencao.getResponsavel().getNomeCompleto());
 
-            // Verificar se a manutenção está atrasada
-            if (manutencao.getStatus() == 1 && manutencao.getDataRetorno() == null) {
-                if (manutencao.getDataPedido().plusDays(7).isBefore(LocalDate.now())) {  // Exemplo: atraso de 7 dias
-                    System.out.println("Status: Atrasada (mais de 7 dias)");
-                } else {
-                    System.out.println("Status: Em andamento");
+                // Verificar se a manutenção está atrasada
+                if (manutencao.getStatus() == 1 && manutencao.getDataRetorno() == null) {
+                    if (manutencao.getDataPedido().plusDays(7).isBefore(LocalDate.now())) {  // Exemplo: atraso de 7 dias
+                        System.out.println("Status: Atrasada (mais de 7 dias)");
+                    } else {
+                        System.out.println("Status: Em andamento");
+                    }
+                } else if (manutencao.getStatus() == 0) {
+                    System.out.println("Status: Solicitada, aguardando atendimento");
                 }
-            } else if (manutencao.getStatus() == 0) {
-                System.out.println("Status: Solicitada, aguardando atendimento");
-            }
 
-            System.out.println("----------------------------");
+                System.out.println("----------------------------");
+            }
         }
     }
+    public void busca() {
+        String entrada;
+        System.out.println("Digite a pesquisa aqui: ");
+        in.nextLine();
+        entrada = in.nextLine();
+        ArrayList<Funcionario> resultadoFuncionarios = equipe.encontraFuncionario(entrada);
+        ArrayList<Equipamento> resultadoEquipamentos = equipamentos.encontraEquipamentos(entrada);
+
+        ArrayList<Object> resultados = new ArrayList<>();
+        resultados.addAll(resultadoFuncionarios);
+        resultados.addAll(resultadoEquipamentos);
+
+        if (resultados.isEmpty()) {
+            System.out.println("Nenhum resultado encontrado.");
+            System.out.println("============================");
+        } else {
+            System.out.println("Resultados da pesquisa: ");
+        }
+        for (Object resultado : resultados) {
+            Funcionario f;
+            Equipamento e;
+            if (resultado instanceof Funcionario) {
+                f = (Funcionario) resultado;
+                System.out.println("=================== Funcionário ===================");
+                System.out.println(
+                    "Funcionário: " + f.getNomeCompleto() +
+                    "\nMatrícula: " + f.getMatricula() +
+                    "\nEmail: " + f.getEmail()
+                );
+                ArrayList<Equipamento> equipamentosResponsavel = equipamentos.encontraEquipamentosPorResponsavel(f);
+                if (!equipamentosResponsavel.isEmpty()) {
+                    System.out.println(
+                        "------------------------------------------------" +
+                        "\nEquipamentos sob responsabilidade: " +
+                        "\n------------------------------------------------"
+                    );
+                    for (Equipamento eq : equipamentosResponsavel) {
+                        System.out.println("Nome: " + eq.getNome() + " | Descrição: " + eq.getDescricao() + " | Valor: R$" + eq.getValorAquisicao());
+                    }
+                }
+            } else if (resultado instanceof Equipamento) {
+                e = (Equipamento) resultado;
+                System.out.println("=================== Equipamento ===================");
+                System.out.println(equipamentos.geraRelatorio(e));
+            }
+            System.out.println("===================================================");
+        }
     }
 
     public void gerarRelatorioEquipamentos() {

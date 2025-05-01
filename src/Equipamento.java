@@ -15,7 +15,7 @@ public class Equipamento {
 	private LocalDate dataAquisicao;
 	private double valorAquisicao;
 	private Funcionario responsavelCompra;
-	private ArrayList<Manutencao> manutencoes;	
+	private ArrayList<Manutencao> manutencoes;
 	private boolean disponivel;
 
 	public Equipamento(String nome, 
