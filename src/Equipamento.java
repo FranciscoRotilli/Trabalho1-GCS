@@ -1,5 +1,8 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 public class Equipamento {
 	public enum Tipo {
@@ -8,14 +11,14 @@ public class Equipamento {
     }
 	private static int contadorID = 1;
 
-	private int id;
-	private String nome;
-	private Tipo tipo;
+	private final int id;
+	private final String nome;
+	private final Tipo tipo;
 	private String descricao;
-	private LocalDate dataAquisicao;
-	private double valorAquisicao;
-	private Funcionario responsavelCompra;
-	private ArrayList<Manutencao> manutencoes;
+	private final LocalDate dataAquisicao;
+	private final double valorAquisicao;
+	private final Funcionario responsavelCompra;
+	private final List<Manutencao> manutencoes;
 	private boolean disponivel;
 
 	public Equipamento(String nome, 
@@ -24,14 +27,20 @@ public class Equipamento {
 					   double valorAquisicao,
 					   Funcionario responsavelCompra,
 					   Tipo tipo) {
-        this.id  = contadorID++;
-        this.nome = nome;
-        this.descricao = descricao;
-        this.dataAquisicao = dataAquisicao;
+        // Validações básicas
+        this.nome = Objects.requireNonNull(nome, "Nome não pode ser nulo");
+        this.descricao = Objects.requireNonNull(descricao, "Descrição não pode ser nula");
+        this.dataAquisicao = Objects.requireNonNull(dataAquisicao, "Data de aquisição não pode ser nula");
+        this.responsavelCompra = Objects.requireNonNull(responsavelCompra, "Responsável pela compra não pode ser nulo");
+        this.tipo = Objects.requireNonNull(tipo, "Tipo não pode ser nulo");
+        
+        if (valorAquisicao < 0) {
+            throw new IllegalArgumentException("Valor de aquisição não pode ser negativo");
+        }
+        
+        this.id = contadorID++;
         this.valorAquisicao = valorAquisicao;
-        this.responsavelCompra = responsavelCompra;
         this.disponivel = true;
-        this.tipo = tipo;
         this.manutencoes = new ArrayList<>();
     }
 
@@ -55,7 +64,7 @@ public class Equipamento {
         return valorAquisicao;
     }
 
-    public Funcionario getResponsavel() {
+    public Funcionario getResponsavelCompra() {
         return responsavelCompra;
     }
 
@@ -68,18 +77,24 @@ public class Equipamento {
     }
 
     public void setDescricao(String descricao) {
-        this.descricao = descricao;
+        this.descricao = Objects.requireNonNull(descricao, "Descrição não pode ser nula");
     }
 
-    public void setDisponivel (boolean status) {
+    public void setDisponivel(boolean status) {
         this.disponivel = status;
     }
 
-	public ArrayList<Manutencao> getManutencoes() {
-		return manutencoes;
-	}
+    public List<Manutencao> getManutencoes() {
+        return Collections.unmodifiableList(manutencoes);
+    }
 
-	public void adicionarManutencao(Manutencao manutencao) {
-		this.manutencoes.add(manutencao);
-	}
+    public void adicionarManutencao(Manutencao manutencao) {
+        Objects.requireNonNull(manutencao, "Manutenção não pode ser nula");
+        this.manutencoes.add(manutencao);
+    }
+
+    @Override
+    public String toString() {
+        return "Nome: " + nome + " | Descrição: " + descricao + " | Data de Aquisição: " + dataAquisicao;
+    }
 }	
