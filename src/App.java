@@ -243,11 +243,7 @@ public class App {
             if (resultado instanceof Funcionario) {
                 f = (Funcionario) resultado;
                 System.out.println("=================== Funcionário ===================");
-                System.out.println(
-                    "Funcionário: " + f.getNomeCompleto() +
-                    "\nMatrícula: " + f.getMatricula() +
-                    "\nEmail: " + f.getEmail()
-                );
+                System.out.println(f);
                 ArrayList<Equipamento> equipamentosResponsavel = equipamentos.encontraEquipamentosPorResponsavel(f);
                 if (!equipamentosResponsavel.isEmpty()) {
                     System.out.println(
@@ -256,7 +252,7 @@ public class App {
                         "\n------------------------------------------------"
                     );
                     for (Equipamento eq : equipamentosResponsavel) {
-                        System.out.println("Nome: " + eq.getNome() + " | Descrição: " + eq.getDescricao() + " | Valor: R$" + eq.getValorAquisicao());
+                        System.out.println(eq);
                     }
                 }
             } else if (resultado instanceof Equipamento) {
@@ -279,7 +275,7 @@ public class App {
         System.out.println("Relatório de Equipamentos:\n");
         for (Equipamento e : listaEquipamentos) {
             String nome = e.getNome();
-            String responsavel = e.getResponsavel().getNomeCompleto();
+            String responsavel = e.getResponsavelCompra().getNomeCompleto();
     
             int manutencoesConcluidas = 0;
             boolean emAndamento = false;

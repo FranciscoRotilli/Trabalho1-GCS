@@ -92,4 +92,9 @@ public class Equipamento {
         Objects.requireNonNull(manutencao, "Manutenção não pode ser nula");
         this.manutencoes.add(manutencao);
     }
+
+    @Override
+    public String toString() {
+        return "Nome: " + nome + " | Descrição: " + descricao + " | Data de Aquisição: " + dataAquisicao;
+    }
 }	
