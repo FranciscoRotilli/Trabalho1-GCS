@@ -60,9 +60,9 @@ public class App {
                 break;
 
             case 10:
-
+                gerarRelatorioEquipamentos();
                 break;
-
+            
             case 11:
 
                 break;
@@ -197,4 +197,39 @@ public class App {
         }
     }
     }
+
+    public void gerarRelatorioEquipamentos() {
+        ArrayList<Equipamento> listaEquipamentos = equipamentos.getEquipamentos();
+    
+        if (listaEquipamentos.isEmpty()) {
+            System.out.println("Nenhum equipamento cadastrado.");
+            return;
+        }
+    
+        System.out.println("Relatório de Equipamentos:\n");
+        for (Equipamento e : listaEquipamentos) {
+            String nome = e.getNome();
+            String responsavel = e.getResponsavel().getNomeCompleto();
+    
+            int manutencoesConcluidas = 0;
+            boolean emAndamento = false;
+    
+            for (Manutencao m : e.getManutencoes()) {
+                if (m.getStatus() == 2) {
+                    manutencoesConcluidas++;
+                } else if (m.getStatus() == 1) {
+                    emAndamento = true;
+                }
+            }
+    
+            System.out.print("Equipamento: " + nome);
+            System.out.print(" | Responsável: " + responsavel);
+            System.out.print(" | Manutenções Concluídas: " + manutencoesConcluidas);
+            if (emAndamento) {
+                System.out.print(" | [Em manutenção]");
+            }
+            System.out.println();  
+    }
+    
+}
 }

@@ -56,7 +56,7 @@ public class Equipamentos {
 	}
 
 	public boolean avancaManutencao(Equipamento e, Manutencao m) {
-		if (e == null && m != null) {
+		if (e != null && m != null) {
 			if(m.getStatus() == 0) {
 				m.setDataManutencao(LocalDate.now());
 				m.setStatus(1);
@@ -124,4 +124,9 @@ public class Equipamentos {
 			default: return "Status Desconhecido";
 		}
 	}
+	
+	public ArrayList<Equipamento> getEquipamentos() {
+		return equipamentos;
+	}
+	
 }
