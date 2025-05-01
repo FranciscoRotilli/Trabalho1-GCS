@@ -66,6 +66,12 @@ public class Equipe {
 		return saida;
 	}
 
+	/**
+	 * Busca um funcionário na equipe pela sua matrícula (identificador único).
+	 * Percorre a lista de funcionários para encontrar uma correspondência.
+	 * @param matricula identificador único do funcionário a ser procurado
+	 * @return o funcionário com a matrícula correspondente; null se não existir
+	 */
 	public Funcionario encontraFuncionarioPorMatricula(int matricula) {
 		for (Funcionario f : equipe) {
 			if (f.getMatricula() == matricula) {

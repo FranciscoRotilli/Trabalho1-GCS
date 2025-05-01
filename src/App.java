@@ -45,7 +45,7 @@ public class App {
                 break;
 
             case 6:
-
+                busca();
                 break;
 
             case 7:
@@ -109,8 +109,7 @@ public class App {
         System.out.println("[3] - Editar o email de um funcionário");
         System.out.println("[4] - Cadastrar equipamento");
         System.out.println("[5] - Status de um equipamento");
-        System.out.println("[6] - Buscar funcionário");
-        System.out.println("[7] - Buscar equipamento");
+        System.out.println("[6] - Buscar funcionário/equipamento");
         System.out.println("[8] - Registrar um pedido de manutenção");
         System.out.println("[9] - Atualizar um pedido de manutenção");
         System.out.println("[10] - Gerar relatório");
@@ -230,28 +229,46 @@ public class App {
         in.nextLine();
         entrada = in.nextLine();
         ArrayList<Funcionario> resultadoFuncionarios = equipe.encontraFuncionario(entrada);
-        // TODO: array resultados equipamentos
+        ArrayList<Equipamento> resultadoEquipamentos = equipamentos.encontraEquipamentos(entrada);
 
         ArrayList<Object> resultados = new ArrayList<>();
         resultados.addAll(resultadoFuncionarios);
-        // resultado.addAll(resultadoEquipamentos)
+        resultados.addAll(resultadoEquipamentos);
+
         if (resultados.isEmpty()) {
             System.out.println("Nenhum resultado encontrado.");
             System.out.println("============================");
         } else {
             System.out.println("Resultados da pesquisa: ");
-            System.out.println("=========================");
         }
         for (Object resultado : resultados) {
             Funcionario f;
             Equipamento e;
             if (resultado instanceof Funcionario) {
                 f = (Funcionario) resultado;
-                System.out.println(f);
-//            } else if (resultado instanceof Equipamento) {
-//                e = (Equipamento) resultado;
-//                System.out.println(e);
+                System.out.println("=================== Funcionário ===================");
+                System.out.println(
+                    "Funcionário: " + f.getNomeCompleto() +
+                    "\nMatrícula: " + f.getMatricula() +
+                    "\nEmail: " + f.getEmail()
+                );
+                ArrayList<Equipamento> equipamentosResponsavel = equipamentos.encontraEquipamentosPorResponsavel(f);
+                if (!equipamentosResponsavel.isEmpty()) {
+                    System.out.println(
+                        "------------------------------------------------" +
+                        "\nEquipamentos sob responsabilidade: " +
+                        "\n------------------------------------------------"
+                    );
+                    for (Equipamento eq : equipamentosResponsavel) {
+                        System.out.println("Nome: " + eq.getNome() + " | Descrição: " + eq.getDescricao() + " | Valor: R$" + eq.getValorAquisicao());
+                    }
+                }
+            } else if (resultado instanceof Equipamento) {
+                e = (Equipamento) resultado;
+                System.out.println("=================== Equipamento ===================");
+                System.out.println(equipamentos.geraRelatorio(e));
             }
+            System.out.println("===================================================");
         }
     }
 
