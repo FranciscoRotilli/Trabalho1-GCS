@@ -65,4 +65,13 @@ public class Equipe {
 		}
 		return saida;
 	}
+
+	public Funcionario encontraFuncionarioPorMatricula(int matricula) {
+		for (Funcionario f : equipe) {
+			if (f.getMatricula() == matricula) {
+				return f;
+			}
+		}
+		return null;
+	}
 }

@@ -108,42 +108,39 @@ public class App {
     }
 
     public void alteraNome(){
-        String nome;
+        int matricula;
+        Funcionario f;
         System.out.println("=============================");
-        System.out.println("Digite o nome do cliente que deseja alterar");
-            nome = in.next();
-        ArrayList<Funcionario> funcionarios = equipe.encontraFuncionario(nome);
-        if(funcionarios.size() > 0){
-            System.out.println("Digite o novo nome do cliente");
-                nome = in.next();
-            for (Funcionario funcionario : funcionarios) {
-                if (equipe.alteraNome(funcionario, nome)) {
-                    System.out.println("Nome alterado com sucesso");
-                } else {
-                    System.out.println("Erro, nome inválido ou já cadastrado");
-                }
-            }
+        System.out.println("Digite a matrícula do Cliente que deseja alternar:");
+        matricula = in.nextInt();
+        f = equipe.encontraFuncionarioPorMatricula(matricula);
+        System.out.println("Digite o novo nome do cliente:");
+        String nome = in.next();
+        if (equipe.alteraNome(f, nome)) {
+            System.out.println("Nome alterado com sucesso");
+        } else {
+            System.out.println("Erro, nome inválido ou já cadastrado");
         }
     }
+        
 
     public void alteraEmail(){
-        String email;   
+        int matricula;
+        Funcionario f;
         System.out.println("=============================");
-        System.out.println("Digite o nome do cliente que deseja alterar");
-            email = in.next();
-        ArrayList<Funcionario> funcionarios = equipe.encontraFuncionario(email);
-        if(funcionarios.size() > 0){
-            System.out.println("Digite o novo email do cliente");
-                email = in.next();
-            for (Funcionario funcionario : funcionarios) {
-                if (equipe.alteraEmail(funcionario, email)) {
-                    System.out.println("Email alterado com sucesso");
-                } else {
-                    System.out.println("Erro, email inválido ou já cadastrado");
-                }
-            }
+        System.out.println("Digite a matrícula do Cliente que deseja alternar:");
+        matricula = in.nextInt();
+        f = equipe.encontraFuncionarioPorMatricula(matricula);
+        System.out.println("Digite o novo Email do cliente:");
+        String nome = in.next();
+        if (equipe.alteraNome(f, nome)) {
+            System.out.println("Email alterado com sucesso");
+        } else {
+            System.out.println("Erro, Email inválido ou já cadastrado");
         }
     }
+        
+    
     public void addEquipamento(){
         String nome, descricao, pesquisaFuncionario;
         Equipamento.Tipo tipo;
