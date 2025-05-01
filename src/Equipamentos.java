@@ -129,6 +129,11 @@ public class Equipamentos {
 		return historico.toString();
 	}
 
+	@SuppressWarnings("unchecked")
+	public ArrayList<Equipamento> getEquipamentos() {
+		return (ArrayList<Equipamento>) equipamentos.clone();
+	}
+
 	public ArrayList<Equipamento> encontraEquipamentos(String entrada) {
 		ArrayList<Equipamento> saida = new ArrayList<>();
 		for (Equipamento e : equipamentos) {
