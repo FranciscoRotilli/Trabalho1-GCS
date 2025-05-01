@@ -275,7 +275,7 @@ public class App {
         System.out.println("Relatório de Equipamentos:\n");
         for (Equipamento e : listaEquipamentos) {
             String nome = e.getNome();
-            String responsavel = e.getResponsavel().getNomeCompleto();
+            String responsavel = e.getResponsavelCompra().getNomeCompleto();
     
             int manutencoesConcluidas = 0;
             boolean emAndamento = false;
