@@ -57,7 +57,7 @@ Escolhemos 3 funcionalidades extra para implementar.
 | Guilherme Kindel | [](), []() |
 | Julian Silveira | [](), []() |
 | Leonardo Silva | [](), []() |
-| Diego Schaeffer | [](), []() |
+| Diego Schaeffer | []()https://github.com/FranciscoRotilli/Trabalho1-GCS/pull/30 https://github.com/FranciscoRotilli/Trabalho1-GCS/pull/12 []() |
 | Arthur Ramos Kasprzak | []()https://github.com/FranciscoRotilli/Trabalho1-GCS/pull/11 https://github.com/FranciscoRotilli/Trabalho1-GCS/pull/26 []() |
 | (?) | [](), []() |
 
@@ -77,6 +77,7 @@ Além das ferramentas, o principal aspecto para um bom trabalho em equipe é uma
 | Guilherme Kindel |  |
 | Julian Silveira | 8.0/10.0 |
 | Leonardo Silva |  |
-| (?) |  |
+| Arthur Ramos Kasprzak | 9.0/10.0 |
+| Diego Schaeffer | 9.0/10.0 |
 | (?) |  |
 | (?) |  |
