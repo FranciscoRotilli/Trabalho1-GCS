@@ -55,22 +55,31 @@ public class Equipamentos {
 		return false;
 	}
 
-	public boolean iniciaManutencao(Equipamento e, Manutencao manutencao) {
-        if (e != null && manutencao != null && manutencao.getStatus() == 0) {
-            manutencao.setDataManutencao(LocalDate.now());
-            manutencao.setStatus(1);
-            return true;
-        }
-        return false;
-    }
+	public boolean atualizaStatusManutencao(Equipamento e, Manutencao m, int novoStatus, String descSolucao) {
+		if (e == null || m == null) return false;
 
-	public boolean finalizaManutencao(Equipamento e, Manutencao manutencao, String descSolucao) {
-		if (e != null && manutencao != null && manutencao.getStatus() == 1) {
-			manutencao.setDescSolucao(descSolucao);
-			manutencao.setDataRetorno(LocalDate.now());
-			manutencao.setStatus(2);
-			e.setDisponivel(true);
-			return true;
+		int statusAtual = m.getStatus();
+
+		if (novoStatus == statusAtual) return true;
+		if (novoStatus < statusAtual) return false;
+
+		switch (novoStatus) {
+			case 1:
+				if (statusAtual == 0) {
+					m.setDataManutencao(LocalDate.now());
+					m.setStatus(1);
+					return true;
+				}
+				break;
+			case 2:
+				if (statusAtual == 1) {
+					m.setDataRetorno(LocalDate.now());
+					m.setDescSolucao(descSolucao);
+					m.setStatus(2);
+					e.setDisponivel(true);
+					return true;
+				}
+				break;
 		}
 		return false;
 	}
