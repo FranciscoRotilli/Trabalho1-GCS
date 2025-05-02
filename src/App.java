@@ -45,28 +45,35 @@ public class App {
                     break;
 
                 case 6:
-                    busca();
+                    alteraStatusEquipamento();
                     break;
 
                 case 7:
-                    registraPedidoManutencao();
+                    busca();
                     break;
 
                 case 8:
-
+                    registraPedidoManutencao();
                     break;
 
                 case 9:
-                    gerarRelatorioEquipamentos();
+
                     break;
 
                 case 10:
-
+                    gerarRelatorioEquipamentos();
                     break;
 
                 case 11:
+
+                    break;
+
+                case 12:
                     acompanharManutencoesPendentesEAtivas();
                     break;
+
+                default:
+                    System.out.println("Opção inválida! Para sair digite 0.");
             }
 
         } while (opcao != 0);
@@ -91,6 +98,9 @@ public class App {
         equipamentos.cadastraEquipamento("Laptop HP G9", Equipamento.Tipo.MOVEL, "Laptop de médio desempenho com 8GB RAM", 2699.00, equipe.encontraFuncionarioPorMatricula(104));
         equipamentos.cadastraEquipamento("HP Neverstop Laser", Equipamento.Tipo.FIXO, "Impressora de alto nível", 500.00, equipe.encontraFuncionarioPorMatricula(106));
         equipamentos.cadastraEquipamento("Laptop Dell XPS", Equipamento.Tipo.MOVEL, "Laptop de alto desempenho com 16GB RAM", 4500.00, equipe.encontraFuncionarioPorMatricula(106));
+        equipamentos.cadastraEquipamento("Laptop Dell XPS", Equipamento.Tipo.MOVEL, "Laptop de alto desempenho com 16GB RAM", 4500.00, equipe.encontraFuncionarioPorMatricula(105));
+        equipamentos.setDisponivel(equipamentos.encontraEquipamentosPorResponsavel(equipe.encontraFuncionarioPorMatricula(105)).getFirst(), false);
+
         // Cria 1 equipamento e depois o cadastra (Não funciona pois não há funcionalidade de criar um equipamento e depois adiciona-lo a lista)
 
         // Equipamento e = new Equipamento("Macbook Air M1", "Laptop de médio desempenho com 8GB RAM", LocalDate.of(2023, 5, 15), 5000.00, equipe.encontraFuncionarioPorMatricula(106), Equipamento.Tipo.MOVEL)
@@ -105,13 +115,14 @@ public class App {
         System.out.println("[3] - Editar o email de um funcionário");
         System.out.println("[4] - Cadastrar equipamento");
         System.out.println("[5] - Status de um equipamento");
-        System.out.println("[6] - Buscar funcionário/equipamento");
-        System.out.println("[7] - Registrar um pedido de manutenção");
-        System.out.println("[8] - Atualizar um pedido de manutenção");
-        System.out.println("[9] - Gerar relatório");
-        System.out.println("[10] - Gerar histórico de manutenção");
-        System.out.println("[11] - Acompanhar manutenções pendentes e atrasadas");
-
+        System.out.println("[6] - Alterar status de um equipamento");
+        System.out.println("[7] - Buscar funcionário/equipamento");
+        System.out.println("[8] - Registrar um pedido de manutenção");
+        System.out.println("[9] - Atualizar um pedido de manutenção");
+        System.out.println("[10] - Gerar relatório");
+        System.out.println("[11] - Gerar histórico de manutenção");
+        System.out.println("[12] - Acompanhar manutenções pendentes e atrasadas");
+        System.out.println("[0] - SAIR");
     }
 
     public void addFuncionario() {
@@ -219,6 +230,37 @@ public class App {
                     System.out.println("----------------------------");
                 }
             }
+        }
+    }
+
+    private void alteraStatusEquipamento() {
+        ArrayList<Equipamento> resultado;
+        String entrada = "";
+        do {
+            System.out.println("Digite o nome ou descrição do equipamento: ");
+            entrada = in.next();
+            resultado = equipamentos.encontraEquipamentos(entrada);
+            if (resultado.isEmpty()) {
+                System.out.println("Erro: Equipamento não encontrado. Digite SAIR para cancelar alteração.");
+            }
+            if (entrada.equals("SAIR")) return;
+        } while (resultado.isEmpty());
+
+        System.out.println("Selecione o equipamento desejado: ");
+        for (int i = 0; i < resultado.size(); i++) {
+            System.out.println("["+i+"] " + resultado.get(i).getNome() + " - " +
+                resultado.get(i).getResponsavelCompra().getNomeCompleto() + " - " +
+                (resultado.get(i).isDisponivel() ? "Disponível" : "Não disponível"));
+        }
+        int opcao = in.nextInt();
+        System.out.println("Tem certeza que deseja alterar o status do equipamento: " + resultado.get(opcao).getNome() +
+                (resultado.get(opcao).isDisponivel() ? " DISPONÍVEL -> INDISPONÍVEL" : " INDISPONÍVEL -> DISPONÍVEL"));
+        System.out.println("[1] Sim");
+        System.out.println("[2] Nao");
+        int o = in.nextInt();
+        if (o == 1) {
+            resultado.get(opcao).setDisponivel(!resultado.get(opcao).isDisponivel());
+            System.out.println("Equipamento alterado com sucesso.");
         }
     }
 
