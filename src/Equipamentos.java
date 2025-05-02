@@ -114,7 +114,7 @@ public class Equipamentos {
      * @return true se a atualização de status foi realizada com sucesso; false se as condições para atualização não forem atendidas ou se os parâmetros fornecidos forem inválidos
      * .
      */
-    public boolean atualizaStatusManutencao(Equipamento e, Manutencao m, int novoStatus, String descSolucao) {
+    public boolean atualizaStatusManutencao(Equipamento e, Manutencao m, int novoStatus, String descSolucao, Funcionario responsavel) {
         if (e == null || m == null) return false;
 
         int statusAtual = m.getStatus();
@@ -126,6 +126,7 @@ public class Equipamentos {
             case 1:
                 if (statusAtual == 0) {
                     m.setDataManutencao(LocalDate.now());
+                    m.setResponsavel(responsavel);
                     m.setStatus(1);
                     return true;
                 }

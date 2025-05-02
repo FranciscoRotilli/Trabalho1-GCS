@@ -11,7 +11,7 @@
 1. Guilherme Kindel ([GitHub](https://github.com/Kindelgui))
 1. Julian Silveira ([GitHub](https://github.com/jfrvs))
 1. Leonardo Silva ([GitHub](https://github.com/LeonardollSilva))
-1. (?) - Ramos ([GitHub](https://github.com/kasprzak-k))
+1. Arthur Ramos ([GitHub](https://github.com/kasprzak-k))
 1. Diego Schaeffer ([GitHub](https://github.com/szchaeffer))
 1. (?) - +55 51 93668070 ([GitHub](https://github.com/))
 
@@ -38,7 +38,7 @@ O processo de branching utilizado foi uma variação do GitFlow, utilizando bran
 | Julian Silveira | [](), []() |
 | Leonardo Silva | [](), []() |
 | Diego Schaeffer | [](), []() |
-| (?) | [](), []() |
+| Arthur Ramos Kasprzak | []()https://github.com/FranciscoRotilli/Trabalho1-GCS/pull/11 https://github.com/FranciscoRotilli/Trabalho1-GCS/pull/26 []() |
 | (?) | [](), []() |
 
 ## Conclusão e Autoavaliação
