@@ -54,8 +54,8 @@ public class Manutencao {
 	public void setDataRetorno(LocalDate dataRetorno) {
 		this.dataRetorno = dataRetorno;
 	}
-	public String getDescSolucao() {return descSolucao;
-	}
+	public String getDescSolucao() {return descSolucao;}
+
 	public void setDescSolucao(String descSolucao) {
 		this.descSolucao = descSolucao;
 	}
