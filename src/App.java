@@ -645,8 +645,50 @@ public class App {
      * - O objeto `equipamentos` deve estar inicializado
      * - O objeto `in` deve estar configurado para entrada de dados
      */
+    public void exibirHistoricoManutencao() {
+        System.out.println("Qual ID de equipamento a ser consultado?");
+        int idEquipamento = in.nextInt();
+        Equipamento equipamento = equipamentos.buscarPorId(idEquipamento);
 
-     private void atualizarPedidoManutencao() {
+        if (equipamento != null) {
+            System.out.println("Histórico de Manutenções para o Equipamento: " + equipamento.getNome());
+            for (Manutencao manutencao : equipamento.getManutencoes()) {
+                System.out.println("Data do Pedido: " + manutencao.getDataPedido() + "\n" +
+                        ", Descrição do Problema: " + manutencao.getDescProblema() + "\n");
+            }
+        } else {
+            System.out.println("Equipamento não encontrado na lista de equipamentos.");
+        }
+    }
+
+    /**
+     * Atualiza o status de uma manutenção existente para um equipamento específico.
+     *
+     * Este metodo permite a atualização progressiva do status de uma manutenção, seguindo
+     * a sequência: Solicitada -> Em andamento -> Finalizada. O processo inclui:
+     *
+     * 1. Solicita e valida o ID do equipamento
+     * 2. Lista todas as manutenções registradas para o equipamento
+     * 3. Permite a seleção da manutenção específica a ser atualizada
+     * 4. Atualiza o status da manutenção para o próximo nível
+     * 5. Se a manutenção estiver sendo finalizada, solicita descrição da solução
+     *
+     * Estados possíveis de manutenção:
+     * - 0: Solicitada
+     * - 1: Em andamento
+     * - 2: Finalizada
+     *
+     * Mensagens de erro são exibidas quando:
+     * - Equipamento não é encontrado
+     * - Não existem manutenções registradas
+     * - Índice de manutenção selecionado é inválido
+     * - Manutenção já está finalizada
+     *
+     * Pré-condições:
+     * - O objeto 'equipamentos' deve estar inicializado
+     * - O objeto 'in' deve estar configurado para entrada de dados
+     */
+    private void atualizarPedidoManutencao() {
         System.out.println("Digite o ID do equipamento:");
         int id = in.nextInt();
         Equipamento equipamento = equipamentos.buscarPorId(id);
@@ -709,20 +751,6 @@ public class App {
             default -> "Desconhecido";
         };
     }
-    public void exibirHistoricoManutencao() {
-        System.out.println("Qual ID de equipamento a ser consultado?");
-        int idEquipamento = in.nextInt();
-        Equipamento equipamento = equipamentos.buscarPorId(idEquipamento);
 
-        if (equipamento != null) {
-            System.out.println("Histórico de Manutenções para o Equipamento: " + equipamento.getNome());
-            for (Manutencao manutencao : equipamento.getManutencoes()) {
-                System.out.println("Data do Pedido: " + manutencao.getDataPedido() + "\n" +
-                        ", Descrição do Problema: " + manutencao.getDescProblema() + "\n");
-            }
-        } else {
-            System.out.println("Equipamento não encontrado na lista de equipamentos");
-        }
-    }
 }
 
