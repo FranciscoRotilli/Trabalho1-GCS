@@ -7,8 +7,7 @@ public class Funcionario {
     public Funcionario(String nomeCompleto, String email) {
         this.nomeCompleto = nomeCompleto;
         this.email = email;
-        this.matricula = proximaMatricula;
-        proximaMatricula++;
+        this.matricula = proximaMatricula++;
     }
 
     public int getMatricula() {

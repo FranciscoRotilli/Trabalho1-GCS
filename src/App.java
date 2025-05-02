@@ -178,7 +178,7 @@ public class App {
         int matricula;
         Funcionario f;
         System.out.println("=============================");
-        System.out.println("Digite a matrícula do Cliente que deseja alternar:");
+        System.out.println("Digite a matrícula do cliente cujo nome deseja alterar:");
         matricula = in.nextInt();
         f = equipe.encontraFuncionarioPorMatricula(matricula);
         System.out.println("Digite o novo nome do cliente:");
@@ -215,10 +215,10 @@ public class App {
         int matricula;
         Funcionario f;
         System.out.println("=============================");
-        System.out.println("Digite a matrícula do Cliente que deseja alternar:");
+        System.out.println("Digite a matrícula do cliente cujo email deseja alterar:");
         matricula = in.nextInt();
         f = equipe.encontraFuncionarioPorMatricula(matricula);
-        System.out.println("Digite o novo Email do cliente:");
+        System.out.println("Digite o novo email do cliente:");
         String nome = in.next();
         if (equipe.alteraNome(f, nome)) {
             System.out.println("Email alterado com sucesso");
@@ -269,13 +269,13 @@ public class App {
         descricao = in.next();
         System.out.println("Digite o valor do equipamento: ");
         valorAquisicao = in.nextDouble();
-        System.out.println("Digite o nome ou email do responsavel pelo equipamento: ");
+        System.out.println("Digite o nome ou email do responsável pelo equipamento: ");
         pesquisaFuncionario = in.next();
-        System.out.println("Resultados da esquisa: ");
+        System.out.println("Resultados da pesquisa: ");
         for (int i = 0; i < equipe.encontraFuncionario(pesquisaFuncionario).size(); i++) {
             System.out.println("\n" + "[" + i + "] " + "Nome: " + equipe.encontraFuncionario(pesquisaFuncionario).get(i).getNomeCompleto() + ", Email: " + equipe.encontraFuncionario(pesquisaFuncionario).get(i).getEmail());
         }
-        System.out.println("\nEscolha o responsavel pelo equipamento digitando o numero a esquerda do funcionario desejado: ");
+        System.out.println("\nEscolha o responsável pelo equipamento digitando o número a esquerda do funcionário desejado: ");
         opcao = in.nextInt();
         responsavel = equipe.encontraFuncionario(pesquisaFuncionario).get(opcao);
 
@@ -381,7 +381,7 @@ public class App {
             entrada = in.next();
             resultado = equipamentos.encontraEquipamentos(entrada);
             if (resultado.isEmpty()) {
-                System.out.println("Erro: Equipamento não encontrado. Digite SAIR para cancelar alteração.");
+                System.out.println("Erro: Equipamento não encontrado. Digite SAIR para cancelar alteração");
             }
             if (entrada.equals("SAIR")) return;
         } while (resultado.isEmpty());
@@ -400,7 +400,7 @@ public class App {
         int o = in.nextInt();
         if (o == 1) {
             resultado.get(opcao).setDisponivel(!resultado.get(opcao).isDisponivel());
-            System.out.println("Equipamento alterado com sucesso.");
+            System.out.println("Equipamento alterado com sucesso");
         }
     }
 
@@ -447,7 +447,7 @@ public class App {
         resultados.addAll(resultadoEquipamentos);
 
         if (resultados.isEmpty()) {
-            System.out.println("Nenhum resultado encontrado.");
+            System.out.println("Nenhum resultado encontrado");
             System.out.println("============================");
         } else {
             System.out.println("Resultados da pesquisa: ");
@@ -495,7 +495,7 @@ public class App {
         ArrayList<Equipamento> listaEquipamentos = equipamentos.getEquipamentos();
 
         if (listaEquipamentos.isEmpty()) {
-            System.out.println("Nenhum equipamento cadastrado.");
+            System.out.println("Nenhum equipamento cadastrado");
             return;
         }
 
@@ -555,7 +555,7 @@ public class App {
         int id;
 
         if (listaEquipamentos.isEmpty()) {
-            System.out.println("Nenhum equipamento cadastrado.");
+            System.out.println("Nenhum equipamento cadastrado");
             return;
         } else {
             System.out.println("Equipamentos cadastrados:");
@@ -583,7 +583,7 @@ public class App {
                 System.out.println(e.getNome() + ": Equipamento indisponível");
             }
         } else {
-            System.out.println("Equipamento não encontrado.");
+            System.out.println("Equipamento não encontrado");
         }
     }
 
@@ -721,7 +721,7 @@ public class App {
                         ", Descrição do Problema: " + manutencao.getDescProblema() + "\n");
             }
         } else {
-            System.out.println("Equipamento não encontrado na lista de equipamentos.");
+            System.out.println("Equipamento não encontrado na lista de equipamentos");
         }
     }
 }
