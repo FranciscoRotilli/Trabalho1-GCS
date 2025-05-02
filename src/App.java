@@ -5,13 +5,13 @@ public class App {
     private Equipe equipe;
     private Scanner in;
     private Equipamentos equipamentos;
-    private Manutencoes manutencoes;
+    //private Equipamento equipamento;  ta instanciado no metodo de acompanhar manutencoes.
 
     public App() {
         equipe = new Equipe();
         in = new Scanner(System.in);
         equipamentos = new Equipamentos();
-        manutencoes = new Manutencoes();
+        //equipamento = new Equipamento();     Não sei se vai precisar inicializar.
     }
 
     public void executar() {
@@ -49,7 +49,7 @@ public class App {
                     break;
 
                 case 7:
-
+                    registraPedidoManutencao();
                     break;
 
                 case 8:
@@ -117,14 +117,14 @@ public class App {
     public void addFuncionario() {
         String nome, email;
         System.out.println("=============================");
-        System.out.println("Digite o nome do cliente");
+        System.out.println("Digite o nome do funcionário");
         nome = in.next();
 
-        System.out.println("Digite o email do cliente");
+        System.out.println("Digite o email do funcionário");
         email = in.next();
 
         if (equipe.cadastraFuncionario(nome, email))
-            System.out.println("Cliente cadastrado com sucesso");
+            System.out.println("Funcionário cadastrado com sucesso");
         else
             System.out.println("Erro, nome ou email inválido");
     }
@@ -197,25 +197,27 @@ public class App {
 
     public void acompanharManutencoesPendentesEAtivas() {
         System.out.println("Acompanhamento de Manutenções Pendentes e Atrasadas:");
-        for (Manutencao manutencao : manutencoes.getManutencoes()) {
-            // Verificar se a manutenção ainda está pendente (status 0 ou 1)
-            if (manutencao.getStatus() == 0 || manutencao.getStatus() == 1) {
-                System.out.println("Equipamento: " + manutencao.getEquipamento().getNome());
-                System.out.println("Problema: " + manutencao.getDescProblema());
-                System.out.println("Responsável: " + manutencao.getResponsavel().getNomeCompleto());
+        for(Equipamento equipamento : equipamentos.getEquipamentos()) {
+            for (Manutencao manutencao : equipamento.getManutencoes()) {
+                // Verificar se a manutenção ainda está pendente (status 0 ou 1)
+                if (manutencao.getStatus() == 0 || manutencao.getStatus() == 1) {
+                    System.out.println("Equipamento: " + manutencao.getEquipamento().getNome());
+                    System.out.println("Problema: " + manutencao.getDescProblema());
+                    System.out.println("Responsável: " + manutencao.getResponsavel().getNomeCompleto());
 
-                // Verificar se a manutenção está atrasada
-                if (manutencao.getStatus() == 1 && manutencao.getDataRetorno() == null) {
-                    if (manutencao.getDataPedido().plusDays(7).isBefore(LocalDate.now())) {  // Exemplo: atraso de 7 dias
-                        System.out.println("Status: Atrasada (mais de 7 dias)");
-                    } else {
-                        System.out.println("Status: Em andamento");
+                    // Verificar se a manutenção está atrasada
+                    if (manutencao.getStatus() == 1 && manutencao.getDataRetorno() == null) {
+                        if (manutencao.getDataPedido().plusDays(7).isBefore(LocalDate.now())) {  // Exemplo: atraso de 7 dias
+                            System.out.println("Status: Atrasada (mais de 7 dias)");
+                        } else {
+                            System.out.println("Status: Em andamento");
+                        }
+                    } else if (manutencao.getStatus() == 0) {
+                        System.out.println("Status: Solicitada, aguardando atendimento");
                     }
-                } else if (manutencao.getStatus() == 0) {
-                    System.out.println("Status: Solicitada, aguardando atendimento");
-                }
 
-                System.out.println("----------------------------");
+                    System.out.println("----------------------------");
+                }
             }
         }
     }
@@ -337,5 +339,17 @@ public class App {
         else{
             System.out.println("Equipamento não encontrado.");
         }
+    }
+
+    public void registraPedidoManutencao(){
+        Equipamento e = null;
+        String descProblema;
+        int id;
+        System.out.println("Digite o id do equipamento desejado: ");
+        id = in.nextInt();
+        e = equipamentos.buscarPorId(id);
+        System.out.println("Dê uma descrição do problema: ");
+        descProblema = in.next();
+        equipamentos.agendarManutencao(e, descProblema);
     }
 }
