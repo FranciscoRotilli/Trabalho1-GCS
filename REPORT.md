@@ -13,7 +13,7 @@
 1. Leonardo Silva ([GitHub](https://github.com/LeonardollSilva))
 1. Arthur Ramos ([GitHub](https://github.com/kasprzak-k))
 1. Diego Schaeffer ([GitHub](https://github.com/szchaeffer))
-1. (?) - +55 51 93668070 ([GitHub](https://github.com/))
+1. Arthur B. Schultz - +55 51 93668070 ([GitHub](https://github.com/arturbschultz))
 
 ## Repositório
 
@@ -25,7 +25,27 @@ O processo de branching utilizado foi uma variação do GitFlow, utilizando bran
 
 ## Descrição do fluxo de trabalho
 
+De início, cada membro realiza um clone do repositório em sua máquina usando `git clone https://github.com/FranciscoRotilli/Trabalho1-GCS`.
+
+Quando for trabalhar em alguma feature ou bugfix, atualiza seu repositório local com `git checkout develop` e `git pull`.
+
+Para começar a desenvolver, faz uma nova branch com `git branch nomeDaFeature` e `git checkout nomeDaFeature`.
+
+Ao finalizar, realiza um push para o Github com `git push -u origin nomeDaFeature` e realiza Pull Request pela interface web do Github, selecionando o destino como `develop`.
+
+Recebido o Pull Request, o responsável (Francisco) realiza um breve code review, deixando comentários para correção posterior, quando necessário.
+Quando acontecem conflitos, são discutidos com o grupo quando necessário.
+
+Ao final do projeto, realizamos Pull Request e merge ao `main`.
+
 ## Funcionalidades escolhidas
+
+Escolhemos 3 funcionalidades extra para implementar.
+
+1. Função para consultar disponibilidade do equipamento (Opção 5).
+1. Função para gerar relatório completo das manutenções de um equipamento (Opção 11)
+1. Função para acompanhar manutenções pendentes e atrasadas (Opção 12)
+
 
 ## Relação de Membros e Contribuições
 
@@ -33,7 +53,7 @@ O processo de branching utilizado foi uma variação do GitFlow, utilizando bran
 |:-----|:------:|
 | Emile Vargas | [](), []() |
 | Felipe Flores | [](), []() |
-| Francisco Rotilli | [](), []() |
+| Francisco Rotilli | []()https://github.com/FranciscoRotilli/Trabalho1-GCS/pulls?q=is%3Apr+is%3Aclosed+author%3AFranciscoRotilli []() |
 | Guilherme Kindel | [](), []() |
 | Julian Silveira | [](), []() |
 | Leonardo Silva | [](), []() |
