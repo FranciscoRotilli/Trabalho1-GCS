@@ -12,7 +12,7 @@
 1. Julian Silveira ([GitHub](https://github.com/jfrvs))
 1. Leonardo Silva ([GitHub](https://github.com/LeonardollSilva))
 1. (?) - Ramos ([GitHub](https://github.com/kasprzak-k))
-1. (?) - schaeffer ([GitHub](https://github.com/szchaeffer))
+1. Diego Schaeffer ([GitHub](https://github.com/szchaeffer))
 1. (?) - +55 51 93668070 ([GitHub](https://github.com/))
 
 ## Repositório
@@ -37,7 +37,7 @@ O processo de branching utilizado foi uma variação do GitFlow, utilizando bran
 | Guilherme Kindel | [](), []() |
 | Julian Silveira | [](), []() |
 | Leonardo Silva | [](), []() |
-| (?) | [](), []() |
+| Diego Schaeffer | [](), []() |
 | (?) | [](), []() |
 | (?) | [](), []() |
 
