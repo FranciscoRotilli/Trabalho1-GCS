@@ -61,7 +61,7 @@ public class App {
                     break;
 
                 case 10:
-
+                    exibirHistoricoManutencao();
                     break;
 
                 case 11:
@@ -352,4 +352,20 @@ public class App {
         descProblema = in.next();
         equipamentos.agendarManutencao(e, descProblema);
     }
+    public void  exibirHistoricoManutencao(){
+        System.out.println("Qual ID de equipamento a ser consultado?");
+        int idEquipamento = in.nextInt();
+        Equipamento equipamento = equipamentos.buscarPorId(idEquipamento);
+
+        if(equipamento != null) {
+            System.out.println("Histórico de Manutenções para o Equipamento: " + equipamento.getNome());
+            for (Manutencao manutencao : equipamento.getManutencoes()) {
+                System.out.println("Data do Pedido: " + manutencao.getDataPedido() + "\n" +
+                        ", Descrição do Problema: " + manutencao.getDescProblema() + "\n");;
+    }
+} else{
+    System.out.println("Equipamento não encontrado na lista de equipamentos.");
+    }
 }
+}
+
