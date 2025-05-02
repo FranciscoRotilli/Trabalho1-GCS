@@ -29,6 +29,14 @@ public class Equipamentos {
     }
 
     /**
+     * Construtor alternativo: adiciona equipamentos existentes ao conjunto
+     */
+    public boolean cadastraEquipamento(Equipamento e) {
+        equipamentos.add(e);
+        return true;
+    }
+
+    /**
      * Busca e retorna um equipamento com base no identificador fornecido.
      * Percorre a lista de equipamentos cadastrados e retorna o equipamento
      * correspondente ao ID especificado, caso exista.
@@ -164,19 +172,19 @@ public class Equipamentos {
      */
     public String geraRelatorio(Equipamento e) {
         if (e == null) {
-            return "Equipamento nao encontrado";
+            return "Equipamento não encontrado";
         }
         StringBuilder sb = new StringBuilder();
         sb.append("Nome: ").append(e.getNome()).append("\n");
-        sb.append("Responsavel Compra: ").append(e.getResponsavelCompra().getNomeCompleto()).append("\n");
-        sb.append("Manutencoes: ").append(e.getManutencoes().size()).append("\n");
+        sb.append("Responsável Compra: ").append(e.getResponsavelCompra().getNomeCompleto()).append("\n");
+        sb.append("Manutenções: ").append(e.getManutencoes().size()).append("\n");
 
         if (e.getManutencoes().isEmpty()) {
-            sb.append("Equipamento nao possui manutencoes\n");
+            sb.append("Equipamento não possui manutenções\n");
         } else {
             for (Manutencao m : e.getManutencoes()) {
                 sb.append("- Problema: ").append(m.getDescProblema()).append(", ");
-                sb.append("Responsavel: ").append(m.getResponsavel().getNomeCompleto()).append("\n ");
+                sb.append("Responsável: ").append(m.getResponsavel().getNomeCompleto()).append("\n ");
             }
         }
         return sb.toString();

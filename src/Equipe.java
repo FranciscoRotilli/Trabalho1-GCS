@@ -24,6 +24,14 @@ public class Equipe {
     }
 
     /**
+     * Construtor alternativo: adiciona funcionários existentes a equipe
+     */
+    public boolean cadastraFuncionario(Funcionario f) {
+        equipe.add(f);
+        return true;
+    }
+
+    /**
      * Altera o email de funcionario cadastrado
      *
      * @param f funcionario a ser alterado
