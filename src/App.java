@@ -23,56 +23,19 @@ public class App {
             opcao = in.nextInt();
 
             switch (opcao) {
-                case 1:
-                    addFuncionario();
-                    break;
-
-                case 2:
-                    alteraNome();
-                    break;
-
-                case 3:
-                    alteraEmail();
-                    break;
-
-                case 4:
-                    addEquipamento();
-                    break;
-
-                case 5:
-                    consultaStatusEquipamento();
-                    break;
-
-                case 6:
-                    alteraStatusEquipamento();
-                    break;
-
-                case 7:
-                    busca();
-                    break;
-
-                case 8:
-                    registraPedidoManutencao();
-                    break;
-
-                case 9:
-                    atualizarPedidoManutencao();
-                    break;
-
-                case 10:
-                    gerarRelatorioEquipamentos();
-                    break;
-
-                case 11:
-                    exibirHistoricoManutencao();
-                    break;
-
-                case 12:
-                    acompanharManutencoesPendentesEAtivas();
-                    break;
-
-                default:
-                    System.out.println("Opção inválida! Para sair digite 0.");
+                case 1 -> addFuncionario();
+                case 2 -> alteraNome();
+                case 3 -> alteraEmail();
+                case 4 -> addEquipamento();
+                case 5 -> consultaStatusEquipamento();
+                case 6 -> alteraStatusEquipamento();
+                case 7 -> busca();
+                case 8 -> registraPedidoManutencao();
+                case 9 -> atualizarPedidoManutencao();
+                case 10 -> gerarRelatorioEquipamentos();
+                case 11 -> exibirHistoricoManutencao();
+                case 12 -> acompanharManutencoesPendentesEAtivas();
+                default -> System.out.println("Opção inválida! Para sair digite 0.");
             }
 
         } while (opcao != 0);
@@ -141,7 +104,8 @@ public class App {
         String nome, email;
         System.out.println("=============================");
         System.out.println("Digite o nome do funcionário");
-        nome = in.next();
+        in.nextLine();
+        nome = in.nextLine();
 
         System.out.println("Digite o email do funcionário");
         email = in.next();
@@ -182,7 +146,8 @@ public class App {
         matricula = in.nextInt();
         f = equipe.encontraFuncionarioPorMatricula(matricula);
         System.out.println("Digite o novo nome do cliente:");
-        String nome = in.next();
+        in.nextLine();
+        String nome = in.nextLine();
         if (equipe.alteraNome(f, nome)) {
             System.out.println("Nome alterado com sucesso");
         } else {
@@ -262,15 +227,18 @@ public class App {
         int opcao;
 
         System.out.println("Digite o nome do equipamento");
-        nome = in.next();
+        in.nextLine();
+        nome = in.nextLine();
         System.out.println("Digite o tipo do equipamento (digite: FIXO ou MOVEL.)");
         tipo = Equipamento.Tipo.valueOf(in.next());
         System.out.println("Dê uma descrição do equipamento: ");
-        descricao = in.next();
+        in.nextLine();
+        descricao = in.nextLine();
         System.out.println("Digite o valor do equipamento: ");
         valorAquisicao = in.nextDouble();
         System.out.println("Digite o nome ou email do responsável pelo equipamento: ");
-        pesquisaFuncionario = in.next();
+        in.nextLine();
+        pesquisaFuncionario = in.nextLine();
         System.out.println("Resultados da pesquisa: ");
         for (int i = 0; i < equipe.encontraFuncionario(pesquisaFuncionario).size(); i++) {
             System.out.println("\n" + "[" + i + "] " + "Nome: " + equipe.encontraFuncionario(pesquisaFuncionario).get(i).getNomeCompleto() + ", Email: " + equipe.encontraFuncionario(pesquisaFuncionario).get(i).getEmail());
@@ -616,7 +584,8 @@ public class App {
         id = in.nextInt();
         e = equipamentos.buscarPorId(id);
         System.out.println("Dê uma descrição do problema: ");
-        descProblema = in.next();
+        in.nextLine();
+        descProblema = in.nextLine();
         equipamentos.agendarManutencao(e, descProblema);
     }
 
@@ -692,6 +661,7 @@ public class App {
         System.out.println("Digite o ID do equipamento:");
         int id = in.nextInt();
         Equipamento equipamento = equipamentos.buscarPorId(id);
+        Funcionario f = null;
     
         if (equipamento == null) {
             System.out.println("Equipamento não encontrado.");
@@ -726,6 +696,21 @@ public class App {
             System.out.println("Esta manutenção já foi concluída.");
             return;
         }
+
+        if (proximoStatus == 1) {
+            System.out.println("Digite o nome do funcionário responsável pela manutenção: ");
+            in.nextLine();
+            String entradaFunc = in.nextLine();
+            ArrayList<Funcionario> resultado = equipe.encontraFuncionario(entradaFunc);
+            int i = 0;
+            for (Funcionario fun : resultado) {
+                System.out.println("\n" + "[" + i + "] " + "Nome: " + fun.getNomeCompleto() + ", Email: " + fun.getEmail());
+                i++;
+            }
+            System.out.println("Digite o número correspondente ao funcionário desejado: ");
+            int opcao = in.nextInt();
+            f = resultado.get(opcao);
+        }
     
         String descSolucao = null;
         if (proximoStatus == 2) {
@@ -734,7 +719,7 @@ public class App {
             descSolucao = in.nextLine();
         }
     
-        boolean sucesso = equipamentos.atualizaStatusManutencao(equipamento, manutencaoSelecionada, proximoStatus, descSolucao);
+        boolean sucesso = equipamentos.atualizaStatusManutencao(equipamento, manutencaoSelecionada, proximoStatus, descSolucao, f);
         if (sucesso) {
             System.out.println("Status atualizado com sucesso para: " + getStatusString(proximoStatus));
         } else {
