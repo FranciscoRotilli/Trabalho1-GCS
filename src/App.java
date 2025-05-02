@@ -1,5 +1,6 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class App {
@@ -55,7 +56,7 @@ public class App {
                     break;
 
                 case 9:
-
+                    atualizarPedidoManutencao();
                     break;
 
                 case 10:
@@ -644,6 +645,70 @@ public class App {
      * - O objeto `equipamentos` deve estar inicializado
      * - O objeto `in` deve estar configurado para entrada de dados
      */
+
+     private void atualizarPedidoManutencao() {
+        System.out.println("Digite o ID do equipamento:");
+        int id = in.nextInt();
+        Equipamento equipamento = equipamentos.buscarPorId(id);
+    
+        if (equipamento == null) {
+            System.out.println("Equipamento não encontrado.");
+            return;
+        }
+    
+        List<Manutencao> manutencoes = equipamento.getManutencoes();
+        if (manutencoes.isEmpty()) {
+            System.out.println("Este equipamento não possui manutenções registradas.");
+            return;
+        }
+    
+        System.out.println("Manutenções encontradas:");
+        for (int i = 0; i < manutencoes.size(); i++) {
+            Manutencao m = manutencoes.get(i);
+            System.out.println("[" + i + "] " + m.getDescProblema() + " - Status: " + getStatusString(m.getStatus()));
+        }
+    
+        System.out.println("Escolha a manutenção que deseja atualizar:");
+        int indice = in.nextInt();
+    
+        if (indice < 0 || indice >= manutencoes.size()) {
+            System.out.println("Índice inválido.");
+            return;
+        }
+    
+        Manutencao manutencaoSelecionada = manutencoes.get(indice);
+        int statusAtual = manutencaoSelecionada.getStatus();
+        int proximoStatus = statusAtual + 1;
+    
+        if (proximoStatus > 2) {
+            System.out.println("Esta manutenção já foi concluída.");
+            return;
+        }
+    
+        String descSolucao = null;
+        if (proximoStatus == 2) {
+            System.out.println("Digite a descrição da solução aplicada:");
+            in.nextLine();
+            descSolucao = in.nextLine();
+        }
+    
+        boolean sucesso = equipamentos.atualizaStatusManutencao(equipamento, manutencaoSelecionada, proximoStatus, descSolucao);
+        if (sucesso) {
+            System.out.println("Status atualizado com sucesso para: " + getStatusString(proximoStatus));
+        } else {
+            System.out.println("Erro ao atualizar o status. Verifique se a transição é válida.");
+        }
+    }
+    
+    // Método auxiliar para traduzir o status
+    private String getStatusString(int status) {
+        return switch (status) {
+            case 0 -> "Solicitada";
+            case 1 -> "Em andamento";
+            case 2 -> "Finalizada";
+            default -> "Desconhecido";
+        };
+    }
     public void exibirHistoricoManutencao() {
         System.out.println("Qual ID de equipamento a ser consultado?");
         int idEquipamento = in.nextInt();
