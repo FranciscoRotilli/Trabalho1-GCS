@@ -1,17 +1,16 @@
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class App {
-    private Equipe equipe;
-    private Scanner in;
-    private Equipamentos equipamentos;
-    //private Equipamento equipamento;  ta instanciado no metodo de acompanhar manutencoes.
+    private final Equipe equipe;
+    private final Scanner in;
+    private final Equipamentos equipamentos;
 
     public App() {
         equipe = new Equipe();
         in = new Scanner(System.in);
         equipamentos = new Equipamentos();
-        //equipamento = new Equipamento();     Não sei se vai precisar inicializar.
     }
 
     public void executar() {
@@ -22,7 +21,6 @@ public class App {
             System.out.println("Digite a opção desejada: ");
             opcao = in.nextInt();
 
-//        adicionar os métodos
             switch (opcao) {
                 case 1:
                     addFuncionario();
@@ -99,13 +97,6 @@ public class App {
         equipamentos.cadastraEquipamento("HP Neverstop Laser", Equipamento.Tipo.FIXO, "Impressora de alto nível", 500.00, equipe.encontraFuncionarioPorMatricula(106));
         equipamentos.cadastraEquipamento("Laptop Dell XPS", Equipamento.Tipo.MOVEL, "Laptop de alto desempenho com 16GB RAM", 4500.00, equipe.encontraFuncionarioPorMatricula(106));
         equipamentos.cadastraEquipamento("Laptop Dell XPS", Equipamento.Tipo.MOVEL, "Laptop de alto desempenho com 16GB RAM", 4500.00, equipe.encontraFuncionarioPorMatricula(105));
-        equipamentos.setDisponivel(equipamentos.encontraEquipamentosPorResponsavel(equipe.encontraFuncionarioPorMatricula(105)).getFirst(), false);
-
-        // Cria 1 equipamento e depois o cadastra (Não funciona pois não há funcionalidade de criar um equipamento e depois adiciona-lo a lista)
-
-        // Equipamento e = new Equipamento("Macbook Air M1", "Laptop de médio desempenho com 8GB RAM", LocalDate.of(2023, 5, 15), 5000.00, equipe.encontraFuncionarioPorMatricula(106), Equipamento.Tipo.MOVEL)
-        // equipamentos.equipamentos.add(e)
-
     }
 
     public void menu() {
@@ -125,6 +116,26 @@ public class App {
         System.out.println("[0] - SAIR");
     }
 
+    /**
+     * Solicita ao usuário o nome e o e-mail de um funcionário e tenta cadastrá-lo na equipe.
+     *
+     * O metodo solicita interativamente que o usuário insira o nome e o e-mail de um funcionário.
+     * Em seguida, utiliza o metodo `cadastraFuncionario` da classe `Equipe` para realizar o
+     * cadastro. Caso o cadastro seja bem-sucedido, é exibida uma mensagem indicando sucesso.
+     * Caso contrário, uma mensagem de erro é exibida informando que o nome ou o e-mail é inválido.
+     *
+     * Pré-condições:
+     * - O objeto `in` deve estar configurado para entrada de dados.
+     * - O objeto `equipe` deve estar inicializado.
+     *
+     * Regras de validação:
+     * - O nome deve ter mais de 3 caracteres.
+     * - O e-mail deve ter mais de 5 caracteres.
+     *
+     * Mensagens exibidas ao usuário:
+     * - Sucesso: "Funcionário cadastrado com sucesso".
+     * - Erro: "Erro, nome ou email inválido".
+     */
     public void addFuncionario() {
         String nome, email;
         System.out.println("=============================");
@@ -140,6 +151,28 @@ public class App {
             System.out.println("Erro, nome ou email inválido");
     }
 
+    /**
+     * Permite alterar o nome de um funcionário cadastrado.
+     *
+     * O metodo solicita ao usuário que informe a matrícula do funcionário cujo nome
+     * será alterado. Em seguida, solicita o novo nome e realiza a validação utilizando
+     * o metodo `alteraNome` da classe `Equipe`.
+     *
+     * Caso o novo nome seja válido e a alteração bem-sucedida, uma mensagem de sucesso
+     * é exibida. Caso contrário, informa o erro ao usuário.
+     *
+     * Condições:
+     * - A matrícula informada deve corresponder a um funcionário existente.
+     * - O novo nome deve ter mais de 3 caracteres, não ser nulo e não ser igual ao nome atual do funcionário.
+     *
+     * Mensagens exibidas ao usuário:
+     * - Sucesso: "Nome alterado com sucesso".
+     * - Erro: "Erro, nome inválido ou já cadastrado".
+     *
+     * Pré-condições:
+     * - O objeto `equipe` deve estar inicializado.
+     * - O objeto `in` deve estar configurado para entrada de dados.
+     */
     public void alteraNome() {
         int matricula;
         Funcionario f;
@@ -156,7 +189,27 @@ public class App {
         }
     }
 
-
+    /**
+     * Permite alterar o e-mail de um funcionário existente.
+     *
+     * O metodo solicita ao usuário a matrícula do funcionário cujo e-mail será alterado,
+     * e em seguida solicita o novo e-mail a ser atribuído. A alteração é realizada utilizando
+     * a lógica implementada no metodo `equipe.alteraNome`, reutilizando o parâmetro para validação
+     * e atualização do e-mail.
+     *
+     * Caso a alteração seja bem-sucedida, uma mensagem de sucesso é exibida ao usuário.
+     * Caso contrário, uma mensagem de erro é exibida, indicando que o e-mail é inválido
+     * ou já foi cadastrado.
+     *
+     * Pré-condições:
+     * - O objeto `equipe` deve estar inicializado.
+     * - O objeto `in` deve estar configurado para entrada de dados.
+     * - A matrícula digitada pelo usuário deve corresponder a um funcionário existente.
+     *
+     * Mensagens exibidas ao usuário:
+     * - Sucesso: "Email alterado com sucesso".
+     * - Erro: "Erro, Email inválido ou já cadastrado".
+     */
     public void alteraEmail() {
         int matricula;
         Funcionario f;
@@ -173,7 +226,33 @@ public class App {
         }
     }
 
-
+    /**
+     * Adiciona um novo equipamento ao sistema com base nas informações fornecidas pelo usuário.
+     *
+     * Este metodo pede ao usuário os detalhes do equipamento, incluindo nome, tipo, descrição,
+     * valor de aquisição, e o responsável pelo equipamento. Utiliza o metodo `cadastraEquipamento`
+     * para registrar essas informações no sistema.
+     *
+     * Processo interativo:
+     * - Solicita o nome do equipamento.
+     * - Solicita o tipo do equipamento (FIXO ou MOVEL).
+     * - Solicita uma descrição para o equipamento.
+     * - Solicita o valor de aquisição do equipamento.
+     * - Solicita o nome ou e-mail do responsável pelo equipamento e exibe uma lista de resultados
+     *   correspondentes com base na busca.
+     * - Solicita ao usuário a escolha do responsável pelo equipamento a partir da lista exibida.
+     *
+     * Validação:
+     * - O tipo de equipamento deve ser FIXO ou MOVEL, de acordo com a enumeração `Equipamento.Tipo`.
+     *
+     * Resultado:
+     * - Se o equipamento for cadastrado com sucesso, exibe a mensagem "Equipamento cadastrado com sucesso."
+     * - Caso ocorra erro no registro do equipamento, exibe a mensagem "Erro: Equipamento nao cadastrado."
+     *
+     * Dependências:
+     * - Requer que o objeto `in` esteja configurado para entrada de dados.
+     * - Requer que os objetos `equipe` e `equipamentos` estejam previamente inicializados.
+     */
     public void addEquipamento() {
         String nome, descricao, pesquisaFuncionario;
         Equipamento.Tipo tipo;
@@ -206,9 +285,35 @@ public class App {
         }
     }
 
+    /**
+     * Monitora as manutenções pendentes e ativas (em andamento ou atrasadas) de equipamentos
+     * registrados no sistema, exibindo informações detalhadas sobre cada manutenção.
+     *
+     * O metodo itera sobre a lista de equipamentos e suas respectivas manutenções, verificando se
+     * elas estão em status pendente ou ativo. Com base no status, exibe as informações seguintes:
+     *
+     * - Nome do equipamento relacionado à manutenção.
+     * - Descrição do problema reportado.
+     * - Nome completo do responsável pela execução da manutenção.
+     *
+     * Além disso, avalia se as manutenções ativas estão atrasadas:
+     * - Se o status for "Em andamento" e a data de retorno for nula, verifica se ultrapassou
+     *   o limite de 7 dias desde a data de pedido.
+     * - Classifica mantendo como "Atrasada" ou "Em andamento", baseado nesses critérios.
+     *
+     * Regras de status:
+     * - Status 0: "Solicitada, aguardando atendimento".
+     * - Status 1: "Em andamento" ou "Atrasada" caso aplicável.
+     *
+     * Pré-condições:
+     * - A lista de equipamentos e suas manutenções deve estar previamente inicializada no sistema.
+     *
+     * Observação:
+     * As exibições são realizadas diretamente no console utilizando `System.out`.
+     */
     public void acompanharManutencoesPendentesEAtivas() {
         System.out.println("Acompanhamento de Manutenções Pendentes e Atrasadas:");
-        for(Equipamento equipamento : equipamentos.getEquipamentos()) {
+        for (Equipamento equipamento : equipamentos.getEquipamentos()) {
             for (Manutencao manutencao : equipamento.getManutencoes()) {
                 // Verificar se a manutenção ainda está pendente (status 0 ou 1)
                 if (manutencao.getStatus() == 0 || manutencao.getStatus() == 1) {
@@ -233,6 +338,40 @@ public class App {
         }
     }
 
+    /**
+     * Permite alterar o status de disponibilidade de um equipamento no sistema.
+     *
+     * Este metodo realiza um processo interativo para alteração do status de um equipamento,
+     * solicitando informações ao usuário até que um equipamento válido seja encontrado e selecionado.
+     * Ele permite alternar o status de disponibilidade entre "disponível" e "não disponível".
+     *
+     * Fluxo de execução:
+     * - O usuário é solicitado a informar o nome ou descrição de um equipamento.
+     * - É realizada a busca pelo equipamento na lista de equipamentos registrados.
+     * - Caso nenhum equipamento seja encontrado, o usuário é informado e pode optar por cancelar o
+     *   processo digitando "SAIR".
+     * - Se um ou mais equipamentos forem encontrados, é exibida uma lista com os resultados para seleção.
+     * - Após a seleção do equipamento, o sistema solicita a confirmação do usuário para alterar o status.
+     * - Se confirmado, o status do equipamento selecionado é alterado com sucesso.
+     *
+     * Regras e validações:
+     * - O usuário deve fornecer uma entrada válida correspondente ao nome ou descrição do equipamento.
+     * - O metodo não continua se o usuário entrar com "SAIR" antes da seleção de um equipamento.
+     * - A seleção de um equipamento deve ser feita a partir dos índices exibidos corretamente na lista.
+     * - A alteração no status só ocorre após a confirmação explícita do usuário.
+     *
+     * Mensagens exibidas:
+     * - "Digite o nome ou descrição do equipamento: " - Solicitação inicial ao usuário.
+     * - "Erro: Equipamento não encontrado. Digite SAIR para cancelar alteração." - Quando nenhum
+     *    equipamento é encontrado com os dados fornecidos.
+     * - "Selecione o equipamento desejado: " - Quando múltiplos equipamentos são encontrados.
+     * - "Tem certeza que deseja alterar o status do equipamento: [EQUIPAMENTO] [STATUS ANTIGO -> STATUS NOVO]" - Confirmação para alteração.
+     * - "Equipamento alterado com sucesso." - Mensagem exibida após alteração bem-sucedida.
+     *
+     * Pré-condições:
+     * - O objeto `equipamentos` deve estar inicializado e conter a lista de equipamentos registrados.
+     * - O objeto `in` deve estar configurado corretamente para entrada de dados.
+     */
     private void alteraStatusEquipamento() {
         ArrayList<Equipamento> resultado;
         String entrada = "";
@@ -248,9 +387,9 @@ public class App {
 
         System.out.println("Selecione o equipamento desejado: ");
         for (int i = 0; i < resultado.size(); i++) {
-            System.out.println("["+i+"] " + resultado.get(i).getNome() + " - " +
-                resultado.get(i).getResponsavelCompra().getNomeCompleto() + " - " +
-                (resultado.get(i).isDisponivel() ? "Disponível" : "Não disponível"));
+            System.out.println("[" + i + "] " + resultado.get(i).getNome() + " - " +
+                    resultado.get(i).getResponsavelCompra().getNomeCompleto() + " - " +
+                    (resultado.get(i).isDisponivel() ? "Disponível" : "Não disponível"));
         }
         int opcao = in.nextInt();
         System.out.println("Tem certeza que deseja alterar o status do equipamento: " + resultado.get(opcao).getNome() +
@@ -264,6 +403,36 @@ public class App {
         }
     }
 
+    /**
+     * Realiza busca integrada por funcionários e equipamentos no sistema com base em uma entrada de texto.
+     *
+     * Este metodo realiza uma pesquisa unificada que procura correspondências tanto na lista de funcionários
+     * quanto na lista de equipamentos. A busca é case-insensitive e aceita correspondências parciais.
+     *
+     * Para funcionários encontrados, exibe:
+     * - Informações básicas do funcionário
+     * - Lista de equipamentos sob sua responsabilidade (se houver)
+     *
+     * Para equipamentos encontrados, exibe:
+     * - Relatório detalhado do equipamento
+     *
+     * Se nenhum resultado for encontrado em ambas as listas, uma mensagem apropriada é exibida.
+     *
+     * Pré-condições:
+     * - Os objetos `equipe` e `equipamentos` devem estar inicializados
+     * - O objeto `in` deve estar configurado para entrada de dados
+     *
+     * Fluxo do processo:
+     * 1. Solicita e captura a entrada do usuário
+     * 2. Realiza busca em paralelo nas listas de funcionários e equipamentos
+     * 3. Combina os resultados em uma única lista
+     * 4. Exibe os resultados formatados de acordo com o tipo do objeto encontrado
+     *
+     * Mensagens ao usuário:
+     * - "Digite a pesquisa aqui: " - Solicitação inicial
+     * - "Nenhum resultado encontrado." - Quando não há correspondências
+     * - "Resultados da pesquisa: " - Quando há pelo menos um resultado
+     */
     public void busca() {
         String entrada;
         System.out.println("Digite a pesquisa aqui: ");
@@ -309,6 +478,18 @@ public class App {
         }
     }
 
+    /**
+     * Gera um relatório detalhado dos equipamentos cadastrados, exibindo informações importantes
+     * sobre cada equipamento, incluindo nome, responsável pela compra e status das manutenções.
+     *
+     * O relatório apresenta:
+     * - Nome do equipamento
+     * - Responsável pela compra do equipamento
+     * - Quantidade de manutenções concluídas
+     * - Indicação caso o equipamento esteja em manutenção
+     *
+     * Caso não existam equipamentos cadastrados, uma mensagem indicativa será exibida.
+     */
     public void gerarRelatorioEquipamentos() {
         ArrayList<Equipamento> listaEquipamentos = equipamentos.getEquipamentos();
 
@@ -321,7 +502,7 @@ public class App {
         for (Equipamento e : listaEquipamentos) {
             String nome = e.getNome();
             String responsavel = e.getResponsavelCompra().getNomeCompleto();
-    
+
             int manutencoesConcluidas = 0;
             boolean emAndamento = false;
 
@@ -343,15 +524,39 @@ public class App {
         }
     }
 
-    public void consultaStatusEquipamento(){
+    /**
+     * Consulta o status de disponibilidade de um equipamento específico no sistema.
+     *
+     * Este metodo exibe uma lista de todos os equipamentos cadastrados com seus respectivos IDs
+     * e permite que o usuário consulte o status de disponibilidade de um equipamento específico
+     * através do seu ID.
+     *
+     * Fluxo do processo:
+     * 1. Verifica se existem equipamentos cadastrados
+     * 2. Exibe lista de equipamentos com seus IDs
+     * 3. Solicita ao usuário o ID do equipamento desejado
+     * 4. Busca o equipamento pelo ID informado
+     * 5. Exibe o status de disponibilidade do equipamento
+     *
+     * Mensagens exibidas ao usuário:
+     * - "Nenhum equipamento cadastrado." - Quando não há equipamentos no sistema
+     * - "Equipamentos cadastrados:" - Seguido da lista de equipamentos
+     * - "Digite o id do equipamento desejado: " - Solicitação de entrada
+     * - "[Nome do equipamento]: Equipamento disponível/indisponível" - Status do equipamento
+     * - "Equipamento não encontrado." - Quando o ID informado é inválido
+     *
+     * Pré-condições:
+     * - O objeto `equipamentos` deve estar inicializado
+     * - O objeto `in` deve estar configurado para entrada de dados
+     */
+    public void consultaStatusEquipamento() {
         ArrayList<Equipamento> listaEquipamentos = equipamentos.getEquipamentos();
         int id;
 
-        if (listaEquipamentos.isEmpty()){
+        if (listaEquipamentos.isEmpty()) {
             System.out.println("Nenhum equipamento cadastrado.");
             return;
-        }
-        else{
+        } else {
             System.out.println("Equipamentos cadastrados:");
             for (Equipamento eq : listaEquipamentos) {
                 System.out.println("- " + eq.getId() + " " + eq.getNome());
@@ -363,27 +568,46 @@ public class App {
 
         Equipamento e = null;
 
-        for (Equipamento eq : listaEquipamentos){
-            if (eq.getId() == id){
+        for (Equipamento eq : listaEquipamentos) {
+            if (eq.getId() == id) {
                 e = eq;
                 break;
             }
         }
 
-        if (e != null){
+        if (e != null) {
             if (e.isDisponivel()) {
                 System.out.println(e.getNome() + ": Equipamento disponível");
-            }
-            else{
+            } else {
                 System.out.println(e.getNome() + ": Equipamento indisponível");
             }
-        }
-        else{
+        } else {
             System.out.println("Equipamento não encontrado.");
         }
     }
 
-    public void registraPedidoManutencao(){
+    /**
+     * Registra um pedido de manutenção para um equipamento específico.
+     *
+     * Este metodo solicita ao usuário o ID do equipamento a ser mantido e uma descrição
+     * do problema. Com base no ID, o equipamento correspondente é identificado e um pedido
+     * de manutenção é agendado utilizando a descrição fornecida.
+     *
+     * Comportamento:
+     * 1. O usuário insere o ID do equipamento.
+     * 2. O equipamento é buscado pelo ID informado.
+     * 3. O usuário fornece uma descrição do problema detectado.
+     * 4. O equipamento é marcado como em manutenção com a descrição indicada.
+     *
+     * Requisitos:
+     * - O ID deve corresponder a um equipamento existente nos registros.
+     * - Deve ser fornecida uma descrição não vazia para o problema.
+     *
+     * Observação:
+     * - O metodo requer que o fluxo de entrada padrão do sistema seja utilizado para interação
+     *   com o usuário.
+     */
+    public void registraPedidoManutencao() {
         Equipamento e = null;
         String descProblema;
         int id;
@@ -394,20 +618,46 @@ public class App {
         descProblema = in.next();
         equipamentos.agendarManutencao(e, descProblema);
     }
-    public void  exibirHistoricoManutencao(){
+
+    /**
+     * Exibe o histórico completo de manutenções para um equipamento específico.
+     *
+     * Este metodo solicita ao usuário o ID do equipamento e exibe todas as manutenções
+     * registradas para ele, incluindo a data do pedido e a descrição do problema para
+     * cada manutenção.
+     *
+     * Fluxo do processo:
+     * 1. Solicita ao usuário o ID do equipamento
+     * 2. Busca o equipamento pelo ID fornecido
+     * 3. Se encontrado, exibe o histórico completo de manutenções
+     * 4. Se não encontrado, exibe mensagem de erro
+     *
+     * Informações exibidas para cada manutenção:
+     * - Data do pedido de manutenção
+     * - Descrição do problema reportado
+     *
+     * Mensagens ao usuário:
+     * - "Qual ID de equipamento a ser consultado?" - Solicitação inicial
+     * - "Equipamento não encontrado na lista de equipamentos." - Quando ID é inválido
+     *
+     * Pré-condições:
+     * - O objeto `equipamentos` deve estar inicializado
+     * - O objeto `in` deve estar configurado para entrada de dados
+     */
+    public void exibirHistoricoManutencao() {
         System.out.println("Qual ID de equipamento a ser consultado?");
         int idEquipamento = in.nextInt();
         Equipamento equipamento = equipamentos.buscarPorId(idEquipamento);
 
-        if(equipamento != null) {
+        if (equipamento != null) {
             System.out.println("Histórico de Manutenções para o Equipamento: " + equipamento.getNome());
             for (Manutencao manutencao : equipamento.getManutencoes()) {
                 System.out.println("Data do Pedido: " + manutencao.getDataPedido() + "\n" +
-                        ", Descrição do Problema: " + manutencao.getDescProblema() + "\n");;
+                        ", Descrição do Problema: " + manutencao.getDescProblema() + "\n");
+            }
+        } else {
+            System.out.println("Equipamento não encontrado na lista de equipamentos.");
+        }
     }
-} else{
-    System.out.println("Equipamento não encontrado na lista de equipamentos.");
-    }
-}
 }
 
