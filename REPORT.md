@@ -51,32 +51,33 @@ Escolhemos 3 funcionalidades extra para implementar.
 
 | Membro | Links |
 |:-----|:------:|
-| Emile Vargas | [](), []() |
-| Felipe Flores | [](), []() |
+| Emile Vargas | []()https://github.com/FranciscoRotilli/Trabalho1-GCS/issues?q=is%3Apr+author%3Aemivargxs []() |
+| Felipe Flores | []()https://github.com/FranciscoRotilli/Trabalho1-GCS/issues?q=state%3Aclosed%20is%3Apr%20author%3A%40me []() |
 | Francisco Rotilli | []()https://github.com/FranciscoRotilli/Trabalho1-GCS/pulls?q=is%3Apr+is%3Aclosed+author%3AFranciscoRotilli []() |
-| Guilherme Kindel | [](), []() |
-| Julian Silveira | [](), []() |
-| Leonardo Silva | [](), []() |
+| Guilherme Kindel | []()https://github.com/FranciscoRotilli/Trabalho1-GCS/pulls?q=is%3Apr+is%3Aclosed+author%3AKindelgui []() |
+| Julian Silveira | []()https://github.com/FranciscoRotilli/Trabalho1-GCS/pulls?q=is%3Apr+is%3Aclosed+author%3Ajfrvs []() |
+| Leonardo Silva | []()https://github.com/FranciscoRotilli/Trabalho1-GCS/pulls?q=is%3Apr+author%3ALeonardollSilva+is%3Aclosed []() |
 | Diego Schaeffer | []() https://github.com/FranciscoRotilli/Trabalho1-GCS/pull/30 , https://github.com/FranciscoRotilli/Trabalho1-GCS/pull/12 []() |
 | Arthur Ramos Kasprzak | []()https://github.com/FranciscoRotilli/Trabalho1-GCS/pull/11 https://github.com/FranciscoRotilli/Trabalho1-GCS/pull/26 []() |
-| (?) | [](), []() |
+| Arthur Schultz | []()https://github.com/FranciscoRotilli/Trabalho1-GCS/pulls?q=is%3Apr+is%3Aclosed+author%3Aarturbschultz []() |
 
 ## Conclusão e Autoavaliação
 
-Durante o trabalho, o grupo teve a experiência de construir um código de maneira colaborativa, principalmente as dificuldades que surgem nesse processo. Apesar das tecnologias sofisticadas de versionamento, existem diversas formas de se trabalhar em equipe no contexto de engenharia de software, e nenhuma é perfeita. Com experiência, é possível identificar quais práticas são mais apropriadas de acordo com a complexidade do projeto, número de integrantes na equipe entre outros fatores.
+Ao longo do trabalho, o grupo vivenciou na prática os desafios e aprendizados envolvidos na construção colaborativa de um projeto de software. Trabalhar em equipe, mesmo com o apoio de ferramentas avançadas de versionamento como o Git, exige organização, alinhamento constante e flexibilidade para lidar com imprevistos.
 
-Apesar do grande número de branches utilizadas, o processo escolhido manteve a main/develop estável, permitindo que o projeto evoluísse de maneira ordenada. Por outro lado, o grande número de branches sobrecarrega o responsável por merge, o que pode ser um problema caso surgam imprevistos.
+Julgamos ter realizado um bom trabalho, apesar das dificuldades enfrentadas, principalmente relacionadas à padronização do código e ao entendimento inicial sobre como as funcionalidades deveriam ser implementadas. Também encontramos dificuldades com o uso do GitHub, principalmente no processo de Pull Request e Merge. Ainda assim, conseguimos manter os ramos main e develop estáveis, o que permitiu que o projeto evoluísse de maneira estruturada.
 
-Além das ferramentas, o principal aspecto para um bom trabalho em equipe é uma comunicação clara e assertiva. Somente assim podem equipes render em alto nível.
+Reconhecemos, porém, que a comunicação e o planejamento — especialmente na divisão de tarefas — foram pontos que poderiam ter sido melhor conduzidos. Esses aspectos terão atenção redobrada em projetos futuros, pois ficou claro para o grupo que o sucesso do trabalho coletivo depende tanto da técnica quanto da clareza na colaboração.
+
 
 | Membro | Avaliação |
 |:-----|:------:|
-| Emile Vargas |  |
-| Felipe Flores |  |
-| Francisco Rotilli |  |
-| Guilherme Kindel |  |
-| Julian Silveira | 8.0/10.0 |
-| Leonardo Silva |  |
+| Emile Vargas | 9.0/10.0 |
+| Felipe Flores | 9.0/10.0 |
+| Francisco Rotilli | 9.8/10.0 |
+| Guilherme Kindel | 8.0/10.0 |
+| Julian Silveira | - |
+| Leonardo Silva | 8.5/10.0 |
 | Diego Schaeffer | 9.0/10.0 |
-| (?) |  |
-| (?) |  |
+| Arthur Ramos | 9.0/10.0 |
+| Arthur Schultz | 8.5/10.0 |
