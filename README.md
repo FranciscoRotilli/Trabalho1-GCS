@@ -1,3 +1,4 @@
+### Trabalho avaliado com nota: 9.2/10.0
 
 # Gerenciamento de Configuração de Software
 **Prof. Daniel Callegari, 2025/1**
